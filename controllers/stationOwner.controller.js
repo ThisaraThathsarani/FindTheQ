@@ -13,10 +13,7 @@ const registerStation = async (req, res) => {
     const arrivaltime = req.body.arrivaltime;
     const finishtime = req.body.finishtime;
     const fueltype = req.body.fueltype;
-    const pwd = req.body.password;
 
-    const salt = bcrypt.genSaltSync(10);
-    const password = bcrypt.hashSync(pwd, salt);
 
     const station = new Station({
         stationid,
@@ -26,8 +23,7 @@ const registerStation = async (req, res) => {
         address,
         arrivaltime,
         finishtime,
-        fueltype,
-        password
+        fueltype
     })
 
     try{
@@ -41,30 +37,6 @@ const registerStation = async (req, res) => {
         console.log(error);
         return res.status(400).send({message: "Error while registering the station to the application"})
 
-    }
-
-}
-
-const login = async (req, res) => {
-    const ownername = req.body.ownername;
-    const password = req.body.password;
-
-    try {
-        const station = await Station.findOne({ ownername: ownername });
-        if (station) {
-            if (station && bcrypt.compareSync(password, station.password)) {
-                const token = auth.generateAccessToken(ownername);
-                
-                return res.status(200).send({ ...ownername.toJSON(), token  });
-            }
-            else {
-                return res.status(400).send({ message: 'Such user does not exist check your credentials' })
-            }
-        } else {
-            return res.status(404).send({ message: 'Such user does not exist' });
-        }
-    } catch (err) {
-        return res.status(400).send({ message: 'Such user does not exist check your credentials' })
     }
 
 }

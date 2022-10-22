@@ -5,7 +5,6 @@ const router = express.Router();
 let stationController = require('../controllers/stationOwner.controller')
 
 router.post('/register', stationController.registerStation);
-router.post('/login', stationController.login);
 
 router.get('/viewAllStation', stationController.getAllStation);
 router.get('/viewOneStation/:stationID', stationController.getOneStation);

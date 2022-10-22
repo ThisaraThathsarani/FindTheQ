@@ -38,9 +38,6 @@ const StationSchema = new Schema( {
         
     },
 
-    password: {
-        
-    }
 
 
 });
