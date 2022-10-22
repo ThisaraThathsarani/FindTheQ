@@ -3,14 +3,18 @@ const { request } = require('express')
 
 const registerQueue = async (req, res) => {
 
-    const queueid = req.body.queueid;
-    const queuelength = req.body.queuelength;
+    const stationname = req.body.stationname;
+    const arrivaltime = req.body.arrivaltime;
+    const leavetime = req.body.leavetime;
+    const status = req.body.status;
     const vehicleType = req.body.vehicleType;
 
 
     const queue = new Queue({
-        queueid,
-        queuelength,
+        stationname,
+        arrivaltime,
+        leavetime,
+        status,
         vehicleType
 
     })

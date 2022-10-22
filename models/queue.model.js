@@ -3,16 +3,23 @@ const { Schema } = mongoose;
 
 const QueueSchema = new Schema( {
 
-    queueid: {
+
+    stationname: {
         type: String,
-        required: true,
     },
 
-    queuelength: {
+    arrivaltime: {
         type: String,
-        required: true,
     },
 
+    leavetime: {
+        type: String,
+    },
+
+    status: {
+        type: String,
+    },
+    
     vehicleType: {
         type: String,
         required: true,
