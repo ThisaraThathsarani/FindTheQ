@@ -1,7 +1,5 @@
 const Station = require('../models/stationOwner.model');
 const { request } = require('express')
-const bcrypt = require('bcryptjs');
-const auth = require('../middlewares/token')
 
 const registerStation = async (req, res) => {
 
@@ -133,6 +131,5 @@ module.exports = {
     getAllStation,
     getOneStation,
     searchStation,
-    updateTime,
-    login
+    updateTime
 }

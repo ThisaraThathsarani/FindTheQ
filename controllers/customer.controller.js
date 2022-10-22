@@ -6,6 +6,7 @@ const auth = require('../middlewares/token')
 const registerCustomer = async (req, res) => {
 
     const customername = req.body.customername;
+    const vehicleid = req.body.vehicleid;
     const nic = req.body.nic;
     const phonenumber = req.body.phonenumber;
     const vehicletype = req.body.vehicletype;
@@ -19,6 +20,7 @@ const registerCustomer = async (req, res) => {
 
     const customer = new Customer({
         customername,
+        vehicleid,
         nic,
         phonenumber,
         vehicletype,
@@ -70,14 +72,15 @@ const login = async (req, res) => {
 }
 
 const updateTime = async (req, res) => {
-    const nic = req.params.nic;
+    const vehicleid = req.params.vehicleid;
 
-    const customer = await Customer.findOne({ nic: nic });
+    const customer = await Customer.findOne({ vehicleid: vehicleid });
 
     const password = customer.password;
 
     const changeTime = {
         customername : req.body.customername,
+        vehicleid : req.body.vehicleid,
         nic : req.body.nic,
         phonenumber : req.body.phonenumber,
         vehicletype : req.body.vehicletype,
@@ -88,7 +91,7 @@ const updateTime = async (req, res) => {
     }
 
     try {
-        const response = await Customer.findOneAndUpdate({ nic: nic } , changeTime);
+        const response = await Customer.findOneAndUpdate({ vehicleid: vehicleid } , changeTime);
         if(response){
             return res.status(200).send({message: 'Successfully update time'})
         }else {

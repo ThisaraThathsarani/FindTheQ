@@ -5,10 +5,6 @@ var Station = require('../models/stationOwner.model');
 var _require = require('express'),
     request = _require.request;
 
-var bcrypt = require('bcryptjs');
-
-var auth = require('../middlewares/token');
-
 var registerStation = function registerStation(req, res) {
   var stationid, ownername, stationname, phonenumber, address, arrivaltime, finishtime, fueltype, station, response;
   return regeneratorRuntime.async(function registerStation$(_context) {
@@ -294,7 +290,6 @@ module.exports = {
   getAllStation: getAllStation,
   getOneStation: getOneStation,
   searchStation: searchStation,
-  updateTime: updateTime,
-  login: login
+  updateTime: updateTime
 };
 //# sourceMappingURL=stationOwner.controller.dev.js.map

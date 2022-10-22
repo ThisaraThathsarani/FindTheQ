@@ -16,12 +16,13 @@ var bcrypt = require('bcryptjs');
 var auth = require('../middlewares/token');
 
 var registerCustomer = function registerCustomer(req, res) {
-  var customername, nic, phonenumber, vehicletype, arrivaltime, departtime, fueltype, pwd, salt, password, customer, response;
+  var customername, vehicleid, nic, phonenumber, vehicletype, arrivaltime, departtime, fueltype, pwd, salt, password, customer, response;
   return regeneratorRuntime.async(function registerCustomer$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           customername = req.body.customername;
+          vehicleid = req.body.vehicleid;
           nic = req.body.nic;
           phonenumber = req.body.phonenumber;
           vehicletype = req.body.vehicletype;
@@ -33,6 +34,7 @@ var registerCustomer = function registerCustomer(req, res) {
           password = bcrypt.hashSync(pwd, salt);
           customer = new Customer({
             customername: customername,
+            vehicleid: vehicleid,
             nic: nic,
             phonenumber: phonenumber,
             vehicletype: vehicletype,
@@ -41,15 +43,15 @@ var registerCustomer = function registerCustomer(req, res) {
             fueltype: fueltype,
             password: password
           });
-          _context.prev = 11;
-          _context.next = 14;
+          _context.prev = 12;
+          _context.next = 15;
           return regeneratorRuntime.awrap(customer.save());
 
-        case 14:
+        case 15:
           response = _context.sent;
 
           if (!response) {
-            _context.next = 20;
+            _context.next = 21;
             break;
           }
 
@@ -58,30 +60,30 @@ var registerCustomer = function registerCustomer(req, res) {
             message: "New Customer Registered to the Fuel System"
           }));
 
-        case 20:
+        case 21:
           console.log("no");
           return _context.abrupt("return", res.status(500).send({
             message: "Internal server error"
           }));
 
-        case 22:
-          _context.next = 28;
+        case 23:
+          _context.next = 29;
           break;
 
-        case 24:
-          _context.prev = 24;
-          _context.t0 = _context["catch"](11);
+        case 25:
+          _context.prev = 25;
+          _context.t0 = _context["catch"](12);
           console.log(_context.t0);
           return _context.abrupt("return", res.status(400).send({
             message: "Error while registering the customer to the application"
           }));
 
-        case 28:
+        case 29:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[11, 24]]);
+  }, null, null, [[12, 25]]);
 };
 
 var login = function login(req, res) {
@@ -150,15 +152,15 @@ var login = function login(req, res) {
 };
 
 var updateTime = function updateTime(req, res) {
-  var nic, customer, password, changeTime, response;
+  var vehicleid, customer, password, changeTime, response;
   return regeneratorRuntime.async(function updateTime$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          nic = req.params.nic;
+          vehicleid = req.params.vehicleid;
           _context3.next = 3;
           return regeneratorRuntime.awrap(Customer.findOne({
-            nic: nic
+            vehicleid: vehicleid
           }));
 
         case 3:
@@ -166,6 +168,7 @@ var updateTime = function updateTime(req, res) {
           password = customer.password;
           changeTime = {
             customername: req.body.customername,
+            vehicleid: req.body.vehicleid,
             nic: req.body.nic,
             phonenumber: req.body.phonenumber,
             vehicletype: req.body.vehicletype,
@@ -177,7 +180,7 @@ var updateTime = function updateTime(req, res) {
           _context3.prev = 6;
           _context3.next = 9;
           return regeneratorRuntime.awrap(Customer.findOneAndUpdate({
-            nic: nic
+            vehicleid: vehicleid
           }, changeTime));
 
         case 9:

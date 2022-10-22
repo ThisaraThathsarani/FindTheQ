@@ -8,6 +8,10 @@ const CustomerSchema = new Schema( {
         required: true,
     },
 
+    vehicleid : {
+        type: String,
+    },
+
     nic: {
         type: String,
     },
