@@ -34,6 +34,31 @@ const registerQueue = async (req, res) => {
 
 }
 
+const updateTime = async (req, res) => {
+    const ID = req.params.id;
+
+    const changeTime = {
+        stationname : req.body.stationname,
+        arrivaltime : req.body.arrivaltime,
+        leavetime : req.body.leavetime,
+        status : req.body.status,
+        vehicleType : req.body.vehicleType,
+    }
+
+    try {
+        const response = await Queue.findOneAndUpdate({ ID: ID } , changeTime);
+        if(response){
+            return res.status(200).send({message: 'Successfully update time'})
+        }else {
+
+        return res.status(500).send({ message: 'Internal server error' });
+        }
+
+    } catch (err) {
+        return res.status(400).send({ message: 'Unable to update' })
+    }
+}
+
 const deletequeue = async (req, res) => {
     const queueid = req.params.queueid;
 
@@ -70,9 +95,29 @@ const getcount = async (req, res) => {
     }
 }
 
+const getcountststus = async (req, res) => {
+    let value = req.params.status.trim();
+
+    try {
+        let queue = await Queue.find();
+        if(queue){
+            Queue.count({status: {$regex: "^" + value + ".*", $options: 'i' } }).then((queues) => {
+                res.json(queues)
+        
+            })
+        }else {
+            return res.status(404).send({ message: 'No such user in the queue' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+}
+
 
 module.exports = {
     registerQueue,
     deletequeue,
-    getcount
+    getcount,
+    updateTime,
+    getcountststus
 }
