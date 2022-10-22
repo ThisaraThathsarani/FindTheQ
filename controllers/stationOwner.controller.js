@@ -88,6 +88,24 @@ const searchStation = async (req, res) => {
     }
 }
 
+const searchStationByAddress = async (req, res) => {
+    let value = req.params.address.trim();
+
+    try {
+        let station = await Station.find();
+        if(station) {
+            Station.find({ address: { $regex: "^" + value + ".*", $options: 'i' } }).then((stations) => {
+                res.json(stations)
+        
+            })
+        }else {
+            return res.status(404).send({ message: 'No such station found' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+}
+
 const updateTime = async (req, res) => {
     const stationid = req.params.stationid;
 
@@ -131,5 +149,6 @@ module.exports = {
     getAllStation,
     getOneStation,
     searchStation,
-    updateTime
+    updateTime,
+    searchStationByAddress
 }

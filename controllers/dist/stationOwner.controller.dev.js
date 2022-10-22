@@ -215,20 +215,74 @@ var searchStation = function searchStation(req, res) {
   }, null, null, [[1, 12]]);
 };
 
-var updateTime = function updateTime(req, res) {
-  var stationid, station, ownername, stationname, address, phonenumber, changeTime, response;
-  return regeneratorRuntime.async(function updateTime$(_context5) {
+var searchStationByAddress = function searchStationByAddress(req, res) {
+  var value, station;
+  return regeneratorRuntime.async(function searchStationByAddress$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
+          value = req.params.address.trim();
+          _context5.prev = 1;
+          _context5.next = 4;
+          return regeneratorRuntime.awrap(Station.find());
+
+        case 4:
+          station = _context5.sent;
+
+          if (!station) {
+            _context5.next = 9;
+            break;
+          }
+
+          Station.find({
+            address: {
+              $regex: "^" + value + ".*",
+              $options: 'i'
+            }
+          }).then(function (stations) {
+            res.json(stations);
+          });
+          _context5.next = 10;
+          break;
+
+        case 9:
+          return _context5.abrupt("return", res.status(404).send({
+            message: 'No such station found'
+          }));
+
+        case 10:
+          _context5.next = 15;
+          break;
+
+        case 12:
+          _context5.prev = 12;
+          _context5.t0 = _context5["catch"](1);
+          return _context5.abrupt("return", res.status(500).send({
+            message: 'Internal Server Error'
+          }));
+
+        case 15:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  }, null, null, [[1, 12]]);
+};
+
+var updateTime = function updateTime(req, res) {
+  var stationid, station, ownername, stationname, address, phonenumber, changeTime, response;
+  return regeneratorRuntime.async(function updateTime$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
           stationid = req.params.stationid;
-          _context5.next = 3;
+          _context6.next = 3;
           return regeneratorRuntime.awrap(Station.findOne({
             stationid: stationid
           }));
 
         case 3:
-          station = _context5.sent;
+          station = _context6.sent;
           ownername = station.ownername;
           stationname = station.stationname;
           address = station.address;
@@ -243,43 +297,43 @@ var updateTime = function updateTime(req, res) {
             finishtime: req.body.finishtime,
             fueltype: req.body.fueltype
           };
-          _context5.prev = 9;
-          _context5.next = 12;
+          _context6.prev = 9;
+          _context6.next = 12;
           return regeneratorRuntime.awrap(Station.findOneAndUpdate({
             stationid: stationid
           }, changeTime));
 
         case 12:
-          response = _context5.sent;
+          response = _context6.sent;
 
           if (!response) {
-            _context5.next = 17;
+            _context6.next = 17;
             break;
           }
 
-          return _context5.abrupt("return", res.status(200).send({
+          return _context6.abrupt("return", res.status(200).send({
             message: 'Successfully updated'
           }));
 
         case 17:
-          return _context5.abrupt("return", res.status(500).send({
+          return _context6.abrupt("return", res.status(500).send({
             message: 'Internal server error'
           }));
 
         case 18:
-          _context5.next = 23;
+          _context6.next = 23;
           break;
 
         case 20:
-          _context5.prev = 20;
-          _context5.t0 = _context5["catch"](9);
-          return _context5.abrupt("return", res.status(400).send({
+          _context6.prev = 20;
+          _context6.t0 = _context6["catch"](9);
+          return _context6.abrupt("return", res.status(400).send({
             message: 'Unable to update'
           }));
 
         case 23:
         case "end":
-          return _context5.stop();
+          return _context6.stop();
       }
     }
   }, null, null, [[9, 20]]);
@@ -290,6 +344,7 @@ module.exports = {
   getAllStation: getAllStation,
   getOneStation: getOneStation,
   searchStation: searchStation,
-  updateTime: updateTime
+  updateTime: updateTime,
+  searchStationByAddress: searchStationByAddress
 };
 //# sourceMappingURL=stationOwner.controller.dev.js.map
