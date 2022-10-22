@@ -1,15 +1,16 @@
-const express = require('express');
+"use strict";
 
-const router = express.Router();
+var express = require('express');
 
-let stationController = require('../controllers/stationOwner.controller')
+var router = express.Router();
+
+var stationController = require('../controllers/stationOwner.controller');
 
 router.post('/register', stationController.registerStation);
 router.post('/login', stationController.login);
-
 router.get('/viewAllStation', stationController.getAllStation);
 router.get('/viewOneStation/:stationID', stationController.getOneStation);
 router.get('/searchStation/:stationname', stationController.searchStation);
 router.put('/:stationid', stationController.updateTime);
-
 module.exports = router;
+//# sourceMappingURL=stationOwner.route.dev.js.map

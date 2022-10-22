@@ -12,6 +12,10 @@ const StationSchema = new Schema( {
         type: String,
         required: true,
     },
+    
+    phonenumber: {
+        type: String,
+    },
 
     stationname: {
         type: String,
@@ -33,6 +37,10 @@ const StationSchema = new Schema( {
     fueltype: {
         
     },
+
+    password: {
+        
+    }
 
 
 });

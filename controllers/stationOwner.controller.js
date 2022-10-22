@@ -1,24 +1,33 @@
 const Station = require('../models/stationOwner.model');
 const { request } = require('express')
+const bcrypt = require('bcryptjs');
+const auth = require('../middlewares/token')
 
 const registerStation = async (req, res) => {
 
     const stationid = req.body.stationid;
     const ownername = req.body.ownername;
     const stationname = req.body.stationname;
+    const phonenumber = req.body.phonenumber;
     const address = req.body.address;
     const arrivaltime = req.body.arrivaltime;
     const finishtime = req.body.finishtime;
     const fueltype = req.body.fueltype;
+    const pwd = req.body.password;
+
+    const salt = bcrypt.genSaltSync(10);
+    const password = bcrypt.hashSync(pwd, salt);
 
     const station = new Station({
         stationid,
         ownername,
         stationname,
+        phonenumber,
         address,
         arrivaltime,
         finishtime,
-        fueltype
+        fueltype,
+        password
     })
 
     try{
@@ -32,6 +41,30 @@ const registerStation = async (req, res) => {
         console.log(error);
         return res.status(400).send({message: "Error while registering the station to the application"})
 
+    }
+
+}
+
+const login = async (req, res) => {
+    const ownername = req.body.ownername;
+    const password = req.body.password;
+
+    try {
+        const station = await Station.findOne({ ownername: ownername });
+        if (station) {
+            if (station && bcrypt.compareSync(password, station.password)) {
+                const token = auth.generateAccessToken(ownername);
+                
+                return res.status(200).send({ ...ownername.toJSON(), token  });
+            }
+            else {
+                return res.status(400).send({ message: 'Such user does not exist check your credentials' })
+            }
+        } else {
+            return res.status(404).send({ message: 'Such user does not exist' });
+        }
+    } catch (err) {
+        return res.status(400).send({ message: 'Such user does not exist check your credentials' })
     }
 
 }
@@ -93,12 +126,14 @@ const updateTime = async (req, res) => {
     const ownername = station.ownername;
     const stationname = station.stationname;
     const address = station.address;
+    const phonenumber = station.phonenumber;
 
 
     const changeTime = {
     stationid : stationid,
     ownername : ownername,
     stationname : stationname,
+    phonenumber : phonenumber,
     address : address,
     arrivaltime : req.body.arrivaltime,
     finishtime : req.body.finishtime,
@@ -126,5 +161,6 @@ module.exports = {
     getAllStation,
     getOneStation,
     searchStation,
-    updateTime
+    updateTime,
+    login
 }
