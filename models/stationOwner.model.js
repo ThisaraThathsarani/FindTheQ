@@ -35,7 +35,7 @@ const StationSchema = new Schema( {
     },
 
     fueltype: {
-        
+       
     },
 
 

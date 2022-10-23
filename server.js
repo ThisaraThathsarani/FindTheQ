@@ -41,3 +41,8 @@ app.use('/api/stations', station);
 let queue = require('./routes/queue.route')
 app.use('/api/queues', queue);
 
+
+//new station route
+let fuelStation = require('./routes/station.route')
+app.use('/api/fuelstation', fuelStation);
+

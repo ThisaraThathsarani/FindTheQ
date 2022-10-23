@@ -23,7 +23,8 @@ const QueueSchema = new Schema( {
     vehicleType: {
         type: String,
         required: true,
-    }
+    },
+    
 
 });
 
