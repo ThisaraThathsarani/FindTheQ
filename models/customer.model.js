@@ -24,21 +24,10 @@ const CustomerSchema = new Schema( {
         type: String,
     },
 
-    arrivaltime: {
-        type: String,
-    },
-
-    departtime: {
-        type: String,
-    },
 
     password: {
         type: String,
         required: true,
-    },
-
-    fueltype: {
-        type: String,
     }
 
 });

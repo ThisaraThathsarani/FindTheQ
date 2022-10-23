@@ -10,9 +10,6 @@ const registerCustomer = async (req, res) => {
     const nic = req.body.nic;
     const phonenumber = req.body.phonenumber;
     const vehicletype = req.body.vehicletype;
-    const arrivaltime = req.body.arrivaltime;
-    const departtime = req.body.departtime;
-    const fueltype = req.body.fueltype;
     const pwd = req.body.password;
 
     const salt = bcrypt.genSaltSync(10);
@@ -24,9 +21,6 @@ const registerCustomer = async (req, res) => {
         nic,
         phonenumber,
         vehicletype,
-        arrivaltime,
-        departtime,
-        fueltype,
         password
     })
 
@@ -84,9 +78,6 @@ const updateTime = async (req, res) => {
         nic : req.body.nic,
         phonenumber : req.body.phonenumber,
         vehicletype : req.body.vehicletype,
-        arrivaltime : req.body.arrivaltime,
-        departtime : req.body.departtime,
-        fueltype : req.body.fueltype,
         password : password
     }
 

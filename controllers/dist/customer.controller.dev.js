@@ -16,7 +16,7 @@ var bcrypt = require('bcryptjs');
 var auth = require('../middlewares/token');
 
 var registerCustomer = function registerCustomer(req, res) {
-  var customername, vehicleid, nic, phonenumber, vehicletype, arrivaltime, departtime, fueltype, pwd, salt, password, customer, response;
+  var customername, vehicleid, nic, phonenumber, vehicletype, pwd, salt, password, customer, response;
   return regeneratorRuntime.async(function registerCustomer$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -26,9 +26,6 @@ var registerCustomer = function registerCustomer(req, res) {
           nic = req.body.nic;
           phonenumber = req.body.phonenumber;
           vehicletype = req.body.vehicletype;
-          arrivaltime = req.body.arrivaltime;
-          departtime = req.body.departtime;
-          fueltype = req.body.fueltype;
           pwd = req.body.password;
           salt = bcrypt.genSaltSync(10);
           password = bcrypt.hashSync(pwd, salt);
@@ -38,20 +35,17 @@ var registerCustomer = function registerCustomer(req, res) {
             nic: nic,
             phonenumber: phonenumber,
             vehicletype: vehicletype,
-            arrivaltime: arrivaltime,
-            departtime: departtime,
-            fueltype: fueltype,
             password: password
           });
-          _context.prev = 12;
-          _context.next = 15;
+          _context.prev = 9;
+          _context.next = 12;
           return regeneratorRuntime.awrap(customer.save());
 
-        case 15:
+        case 12:
           response = _context.sent;
 
           if (!response) {
-            _context.next = 21;
+            _context.next = 18;
             break;
           }
 
@@ -60,30 +54,30 @@ var registerCustomer = function registerCustomer(req, res) {
             message: "New Customer Registered to the Fuel System"
           }));
 
-        case 21:
+        case 18:
           console.log("no");
           return _context.abrupt("return", res.status(500).send({
             message: "Internal server error"
           }));
 
-        case 23:
-          _context.next = 29;
+        case 20:
+          _context.next = 26;
           break;
 
-        case 25:
-          _context.prev = 25;
-          _context.t0 = _context["catch"](12);
+        case 22:
+          _context.prev = 22;
+          _context.t0 = _context["catch"](9);
           console.log(_context.t0);
           return _context.abrupt("return", res.status(400).send({
             message: "Error while registering the customer to the application"
           }));
 
-        case 29:
+        case 26:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[12, 25]]);
+  }, null, null, [[9, 22]]);
 };
 
 var login = function login(req, res) {
@@ -172,9 +166,6 @@ var updateTime = function updateTime(req, res) {
             nic: req.body.nic,
             phonenumber: req.body.phonenumber,
             vehicletype: req.body.vehicletype,
-            arrivaltime: req.body.arrivaltime,
-            departtime: req.body.departtime,
-            fueltype: req.body.fueltype,
             password: password
           };
           _context3.prev = 6;
