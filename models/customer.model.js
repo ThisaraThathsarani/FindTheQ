@@ -3,12 +3,12 @@ const { Schema } = mongoose;
 
 const CustomerSchema = new Schema( {
 
-    customername: {
+    customerName: {
         type: String,
         required: true,
     },
 
-    vehicleid : {
+    vehicleId : {
         type: String,
     },
 
@@ -16,11 +16,11 @@ const CustomerSchema = new Schema( {
         type: String,
     },
 
-    phonenumber: {
+    phoneNumber: {
         type: String,
     },
 
-    vehicletype: {
+    vehicleType: {
         type: String,
     },
 

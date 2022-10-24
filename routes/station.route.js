@@ -6,20 +6,21 @@ let fuelStationController = require('../controllers/station.controller')
 
 router.post('/fuelStationRegister',fuelStationController.StationRegister);
 router.get('/viewAllFuelStation' , fuelStationController.getAllFuelStation);
-router.get('/viewOneFuelStation/:stationid' , fuelStationController.getOneFuelStation);
+router.get('/viewOneFuelStation/:id' , fuelStationController.getOneFuelStation);
 
-router.get('/searchStationByName/:stationname' , fuelStationController.searchStation);
+router.get('/searchStationByName/:name' , fuelStationController.searchStation);
 router.get('/searchStationByAddress/:address', fuelStationController.searchByAddress);
 
-router.put('/updateStatus/:stationid' , fuelStationController.updateStatus);
-router.put('/updateStock/:stationid' , fuelStationController.updatestock);
-router.put('/updateQueue/:stationid' , fuelStationController.updatelength);
-router.put('/updateDetails/:stationid' , fuelStationController.updateDetails);
+router.put('/updateStatus/:id' , fuelStationController.updateStatus);
+router.put('/updateStock/:id' , fuelStationController.updatestock);
+router.put('/updateQueue/:id' , fuelStationController.updatelength);
+router.put('/updateDetails/:id' , fuelStationController.updateDetails);
 
-router.get('/getCount/:stationid' , fuelStationController.getcount);
-router.get('/getCarCount/:stationid' , fuelStationController.getCarCount);
-router.get('/getVanCount/:stationid' , fuelStationController.getVanCount);
-router.get('/getBusCount/:stationid' , fuelStationController.getBusCount);
-router.get('/getBikeCount/:stationid' , fuelStationController.getBikeCount);
+router.get('/getCount/:id' , fuelStationController.getcount);
+router.get('/getCarCount/:id' , fuelStationController.getCarCount);
+router.get('/getVanCount/:id' , fuelStationController.getVanCount);
+router.get('/getBusCount/:id' , fuelStationController.getBusCount);
+router.get('/getBikeCount/:id' , fuelStationController.getBikeCount);
+router.get('/gettukeCount/:id' , fuelStationController.getTukCount);
 
 module.exports = router;

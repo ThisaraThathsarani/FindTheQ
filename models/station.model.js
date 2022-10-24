@@ -3,11 +3,11 @@ const { Schema } = mongoose;
  
 const FuelStationSchema = new Schema( { 
 
-    stationid: {
+    id: {
         type: String,
     },
 
-    stationname: {
+    name: {
         type: String,
     },
 
@@ -40,7 +40,7 @@ const FuelStationSchema = new Schema( {
     },
 
     queue: {
-        Car: {type: String }, Van: {type: String }, Bus: {type: String }, Bike: {type: String }
+        Car: {type: String }, Van: {type: String }, Bus: {type: String }, Bike: {type: String }, Tuk: {type: String }
     }
 
 

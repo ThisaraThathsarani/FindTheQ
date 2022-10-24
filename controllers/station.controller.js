@@ -2,8 +2,8 @@ const FuelStation = require('../models/station.model');
 const { request } = require('express')
 
 const StationRegister = async (req, res) => {
-    const stationid = req.body.stationid;
-    const stationname = req.body.stationname;
+    const id = req.body.id;
+    const name = req.body.name;
     const ownername = req.body.ownername;
     const phonenumber = req.body.phonenumber;
     const address = req.body.address;
@@ -14,8 +14,8 @@ const StationRegister = async (req, res) => {
     const queue = req.body.queue;
 
     const fuelStation = new FuelStation({
-        stationid,
-        stationname,
+        id,
+        name,
         ownername,
         phonenumber,
         address,
@@ -55,11 +55,11 @@ const getAllFuelStation = async (req,res) =>{
 }
 
 const getOneFuelStation = async (req, res) => {
-    const stationid = req.params.stationid;
+    const id = req.params.id;
 
     try {
         let station = await FuelStation.findOne({
-            stationid: stationid 
+            stationid: id 
         });
         if(station) {
             return res.json(station)
@@ -72,12 +72,12 @@ const getOneFuelStation = async (req, res) => {
 }
 
 const searchStation = async (req, res) => {
-    let value = req.params.stationname.trim();
+    let value = req.params.name.trim();
 
     try {
         let station = await FuelStation.find();
         if(station) {
-            FuelStation.find({ stationname: { $regex: "^" + value + ".*", $options: 'i' } }).then((stations) => {
+            FuelStation.find({ name: { $regex: "^" + value + ".*", $options: 'i' } }).then((stations) => {
                 res.json(stations)
         
             })
@@ -108,11 +108,11 @@ const searchByAddress = async (req, res) => {
 }
 
 const updateStatus = async (req, res) => {
-    const stationid = req.params.stationid;
+    const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({stationid : stationid});
+    const fuelStation = await FuelStation.findOne({stationid : id});
 
-    const stationname = fuelStation.stationname;
+    const name = fuelStation.name;
     const ownername = fuelStation.ownername;
     const phonenumber = fuelStation.phonenumber;
     const address = fuelStation.address;
@@ -122,8 +122,8 @@ const updateStatus = async (req, res) => {
     const queue = fuelStation.queue;
 
     const changeStatus = {
-        stationid : stationid,
-        stationname : stationname,
+        id : id,
+        name : name,
         ownername : ownername,
         phonenumber : phonenumber,
         address : address,
@@ -136,7 +136,7 @@ const updateStatus = async (req, res) => {
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ stationid: stationid } , changeStatus);
+        const response = await FuelStation.findOneAndUpdate({ stationid: id } , changeStatus);
         if(response){
             return res.status(200).send({message: 'Successfully updated'})
         }else {
@@ -151,11 +151,11 @@ const updateStatus = async (req, res) => {
 }
 
 const updatestock = async (req, res) => {
-    const stationid = req.params.stationid;
+    const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({stationid : stationid});
+    const fuelStation = await FuelStation.findOne({id : id});
 
-    const stationname = fuelStation.stationname;
+    const name = fuelStation.name;
     const ownername = fuelStation.ownername;
     const phonenumber = fuelStation.phonenumber;
     const address = fuelStation.address;
@@ -165,8 +165,8 @@ const updatestock = async (req, res) => {
     const queue = fuelStation.queue;
 
     const changeStatus = {
-        stationid : stationid,
-        stationname : stationname,
+        id : id,
+        name : name,
         ownername : ownername,
         phonenumber : phonenumber,
         address : address,
@@ -179,7 +179,7 @@ const updatestock = async (req, res) => {
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ stationid: stationid } , changeStatus);
+        const response = await FuelStation.findOneAndUpdate({ stationid: id } , changeStatus);
         if(response){
             return res.status(200).send({message: 'Successfully updated'})
         }else {
@@ -194,11 +194,11 @@ const updatestock = async (req, res) => {
 }
 
 const updatelength = async (req, res) => {
-    const stationid = req.params.stationid;
+    const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({stationid : stationid});
+    const fuelStation = await FuelStation.findOne({id : id});
 
-    const stationname = fuelStation.stationname;
+    const name = fuelStation.name;
     const ownername = fuelStation.ownername;
     const phonenumber = fuelStation.phonenumber;
     const address = fuelStation.address;
@@ -208,8 +208,8 @@ const updatelength = async (req, res) => {
     const stock = fuelStation.stock;
 
     const changeStatus = {
-        stationid : stationid,
-        stationname : stationname,
+        id : id,
+        name : name,
         ownername : ownername,
         phonenumber : phonenumber,
         address : address,
@@ -222,7 +222,7 @@ const updatelength = async (req, res) => {
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ stationid: stationid } , changeStatus);
+        const response = await FuelStation.findOneAndUpdate({ id: id } , changeStatus);
         if(response){
             return res.status(200).send({message: 'Successfully updated'})
         }else {
@@ -237,11 +237,11 @@ const updatelength = async (req, res) => {
 }
 
 const updateDetails = async (req, res) => {
-    const stationid = req.params.stationid;
+    const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({stationid : stationid});
+    const fuelStation = await FuelStation.findOne({id : id});
 
-    const stationname = fuelStation.stationname;
+    const name = fuelStation.name;
     const ownername = fuelStation.ownername;
     const phonenumber = fuelStation.phonenumber;
     const address = fuelStation.address;
@@ -250,8 +250,8 @@ const updateDetails = async (req, res) => {
     const queue = fuelStation.queue;
 
     const changeStatus = {
-        stationid : stationid,
-        stationname : stationname,
+        id : id,
+        name : name,
         ownername : ownername,
         phonenumber : phonenumber,
         address : address,
@@ -264,7 +264,7 @@ const updateDetails = async (req, res) => {
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ stationid: stationid } , changeStatus);
+        const response = await FuelStation.findOneAndUpdate({ id: id } , changeStatus);
         if(response){
             return res.status(200).send({message: 'Successfully updated'})
         }else {
@@ -279,11 +279,11 @@ const updateDetails = async (req, res) => {
 }
 
 const getcount = async (req, res) => {
-    let value = req.params.stationid.trim();
+    let value = req.params.id.trim();
     console.log("carcount");
     try {
 
-        let fuealStationData = await FuelStation.findOne({stationid : value});
+        let fuealStationData = await FuelStation.findOne({id : value});
 
         if(fuealStationData){
            
@@ -291,8 +291,10 @@ const getcount = async (req, res) => {
             let vanCount = parseInt(fuealStationData.queue.Van);
             let busCount = parseInt(fuealStationData.queue.Bus);
             let bikeCount = parseInt(fuealStationData.queue.Bike);
+            let tukCount = parseInt(fuealStationData.queue.Tuk);
 
-            let allCount = carCount + vanCount + busCount + bikeCount;
+
+            let allCount = carCount + vanCount + busCount + bikeCount + tukCount;
          
             // let countObject = {
             //     carCount : carCount,
@@ -313,11 +315,11 @@ const getcount = async (req, res) => {
 }
 
 const getCarCount = async (req,res) => {
-    let value = req.params.stationid.trim();
+    let value = req.params.id.trim();
    
     try {
 
-        let fuealStationData = await FuelStation.findOne({stationid : value});
+        let fuealStationData = await FuelStation.findOne({id : value});
 
         if(fuealStationData){
            
@@ -334,11 +336,11 @@ const getCarCount = async (req,res) => {
 }
 
 const getVanCount = async (req,res) => {
-    let value = req.params.stationid.trim();
+    let value = req.params.id.trim();
    
     try {
 
-        let fuealStationData = await FuelStation.findOne({stationid : value});
+        let fuealStationData = await FuelStation.findOne({id : value});
 
         if(fuealStationData){
            
@@ -355,11 +357,11 @@ const getVanCount = async (req,res) => {
 }
 
 const getBusCount = async (req,res) => {
-    let value = req.params.stationid.trim();
+    let value = req.params.id.trim();
    
     try {
 
-        let fuealStationData = await FuelStation.findOne({stationid : value});
+        let fuealStationData = await FuelStation.findOne({id : value});
 
         if(fuealStationData){
            
@@ -376,11 +378,11 @@ const getBusCount = async (req,res) => {
 }
 
 const getBikeCount = async (req,res) => {
-    let value = req.params.stationid.trim();
+    let value = req.params.id.trim();
    
     try {
 
-        let fuealStationData = await FuelStation.findOne({stationid : value});
+        let fuealStationData = await FuelStation.findOne({id : value});
 
         if(fuealStationData){
            
@@ -396,6 +398,28 @@ const getBikeCount = async (req,res) => {
     }
 }
 
+const getTukCount = async (req,res) => {
+    let value = req.params.id.trim();
+   
+    try {
+
+        let fuealStationData = await FuelStation.findOne({id : value});
+
+        if(fuealStationData){
+           
+            let tukCount = parseInt(fuealStationData.queue.Tuk);
+
+           return res.status(200).send({count : tukCount});
+           
+        }else {
+            return res.status(404).send({ message: 'No such vehicle type found' });
+        }
+    } catch (err) {
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+}
+
+
 module.exports = {
     StationRegister,
     getAllFuelStation,
@@ -410,6 +434,7 @@ module.exports = {
     getCarCount,
     getVanCount,
     getBusCount,
-    getBikeCount
+    getBikeCount,
+    getTukCount
     
 }
