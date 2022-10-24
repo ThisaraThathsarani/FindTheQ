@@ -41,6 +41,10 @@ const FuelStationSchema = new Schema( {
 
     queue: {
         Car: {type: Number }, Van: {type: Number }, Bus: {type: Number }, Bike: {type: Number }, Tuk: {type: Number }
+    },
+
+    password: {
+        type:String
     }
 
 

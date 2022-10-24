@@ -8,6 +8,10 @@ const CustomerSchema = new Schema( {
         required: true,
     },
 
+    email: {
+        type:String
+    },
+
     vehicleid : {
         type: String,
     },

@@ -16,12 +16,13 @@ var bcrypt = require('bcryptjs');
 var auth = require('../middlewares/token');
 
 var registerCustomer = function registerCustomer(req, res) {
-  var customername, vehicleid, nic, phonenumber, vehicletype, pwd, salt, password, customer, response;
+  var customername, email, vehicleid, nic, phonenumber, vehicletype, pwd, salt, password, customer, response;
   return regeneratorRuntime.async(function registerCustomer$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           customername = req.body.customername;
+          email = req.body.email;
           vehicleid = req.body.vehicleid;
           nic = req.body.nic;
           phonenumber = req.body.phonenumber;
@@ -31,6 +32,7 @@ var registerCustomer = function registerCustomer(req, res) {
           password = bcrypt.hashSync(pwd, salt);
           customer = new Customer({
             customername: customername,
+            email: email,
             vehicleid: vehicleid,
             nic: nic,
             phonenumber: phonenumber,
@@ -38,15 +40,15 @@ var registerCustomer = function registerCustomer(req, res) {
             password: password,
             isJoined: false
           });
-          _context.prev = 9;
-          _context.next = 12;
+          _context.prev = 10;
+          _context.next = 13;
           return regeneratorRuntime.awrap(customer.save());
 
-        case 12:
+        case 13:
           response = _context.sent;
 
           if (!response) {
-            _context.next = 18;
+            _context.next = 19;
             break;
           }
 
@@ -55,44 +57,44 @@ var registerCustomer = function registerCustomer(req, res) {
             message: "New Customer Registered to the Fuel System"
           }));
 
-        case 18:
+        case 19:
           console.log("no");
           return _context.abrupt("return", res.status(500).send({
             message: "Internal server error"
           }));
 
-        case 20:
-          _context.next = 26;
+        case 21:
+          _context.next = 27;
           break;
 
-        case 22:
-          _context.prev = 22;
-          _context.t0 = _context["catch"](9);
+        case 23:
+          _context.prev = 23;
+          _context.t0 = _context["catch"](10);
           console.log(_context.t0);
           return _context.abrupt("return", res.status(400).send({
             message: "Error while registering the customer to the application"
           }));
 
-        case 26:
+        case 27:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[9, 22]]);
+  }, null, null, [[10, 23]]);
 };
 
 var updateCustomerJoinedStatus = function updateCustomerJoinedStatus(req, res) {
-  var nic, _res;
+  var email, _res;
 
   return regeneratorRuntime.async(function updateCustomerJoinedStatus$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          nic = req.params.nic;
+          email = req.params.email;
           _context2.prev = 1;
           _context2.next = 4;
           return regeneratorRuntime.awrap(Customer.updateOne({
-            "nic": nic
+            "email": email
           }, {
             $set: {
               "isJoined": true
@@ -123,17 +125,17 @@ var updateCustomerJoinedStatus = function updateCustomerJoinedStatus(req, res) {
 };
 
 var login = function login(req, res) {
-  var customername, password, customer, token;
+  var email, password, customer, token;
   return regeneratorRuntime.async(function login$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          customername = req.body.customername;
+          email = req.body.email;
           password = req.body.password;
           _context3.prev = 2;
           _context3.next = 5;
           return regeneratorRuntime.awrap(Customer.findOne({
-            customername: customername
+            email: email
           }));
 
         case 5:
@@ -149,7 +151,7 @@ var login = function login(req, res) {
             break;
           }
 
-          token = auth.generateAccessToken(customername);
+          token = auth.generateAccessToken(email);
           return _context3.abrupt("return", res.status(200).send(_objectSpread({}, customer.toJSON(), {
             token: token
           })));
@@ -253,16 +255,16 @@ var updateTime = function updateTime(req, res) {
 };
 
 var getOneUser = function getOneUser(req, res) {
-  var customername, customer;
+  var email, customer;
   return regeneratorRuntime.async(function getOneUser$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
-          customername = req.params.customername;
+          email = req.params.email;
           _context5.prev = 1;
           _context5.next = 4;
           return regeneratorRuntime.awrap(Customer.findOne({
-            customername: customername
+            email: email
           }));
 
         case 4:

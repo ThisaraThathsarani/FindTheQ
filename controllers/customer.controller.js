@@ -6,6 +6,7 @@ const auth = require('../middlewares/token')
 const registerCustomer = async (req, res) => {
 
     const customername = req.body.customername;
+    const email = req.body.email;
     const vehicleid = req.body.vehicleid;
     const nic = req.body.nic;
     const phonenumber = req.body.phonenumber;
@@ -17,6 +18,7 @@ const registerCustomer = async (req, res) => {
 
     const customer = new Customer({
         customername,
+        email,
         vehicleid,
         nic,
         phonenumber,
@@ -44,11 +46,11 @@ const registerCustomer = async (req, res) => {
 
 const updateCustomerJoinedStatus = async (req, res) => {
 
-    const nic = req.params.nic;
-    
+    const email = req.params.email;
+
     try {
         const res = await Customer.updateOne(
-            {"nic": nic},
+            {"email": email},
             {$set: {"isJoined": true }}
         )
         if(res){
@@ -60,14 +62,14 @@ const updateCustomerJoinedStatus = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    const customername = req.body.customername;
+    const email = req.body.email;
     const password = req.body.password;
 
     try {
-        const customer = await Customer.findOne({ customername: customername });
+        const customer = await Customer.findOne({ email: email });
         if (customer) {
             if (customer && bcrypt.compareSync(password, customer.password)) {
-                const token = auth.generateAccessToken(customername);
+                const token = auth.generateAccessToken(email);
                 
                 return res.status(200).send({ ...customer.toJSON(), token  });
             }
@@ -116,11 +118,11 @@ const updateTime = async (req, res) => {
 
 const getOneUser = async (req, res) => {
 
-    const customername = req.params.customername
+    const email = req.params.email;
 
     try {
         let customer = await Customer.findOne({
-            customername: customername 
+            email: email 
         });
         if(customer) {
             return res.json(customer)

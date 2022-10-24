@@ -1,5 +1,7 @@
 const FuelStation = require('../models/station.model');
 const { request } = require('express')
+const bcrypt = require('bcryptjs');
+const auth = require('../middlewares/token')
 
 const StationRegister = async (req, res) => {
     const id = req.body.id;
@@ -12,6 +14,10 @@ const StationRegister = async (req, res) => {
     const status = req.body.status;
     const stock = req.body.stock;
     const queue = req.body.queue;
+    const pwd = req.body.password;
+
+    const salt = bcrypt.genSaltSync(10);
+    const password = bcrypt.hashSync(pwd, salt);
 
     const fuelStation = new FuelStation({
         id,
@@ -23,7 +29,8 @@ const StationRegister = async (req, res) => {
         finishtime,
         status,
         stock,
-        queue
+        queue,
+        password
     })
 
     try {
@@ -40,6 +47,32 @@ const StationRegister = async (req, res) => {
     }
 
 }
+
+
+const login = async (req, res) => {
+    const stationid = req.body.stationid;
+    const password = req.body.password;
+
+    try {
+        const fuelStation = await FuelStation.findOne({ stationid: stationid });
+        if (fuelStation) {
+            if (fuelStation && bcrypt.compareSync(password, fuelStation.password)) {
+                const token = auth.generateAccessToken(stationid);
+                
+                return res.status(200).send({ ...customer.toJSON(), token  });
+            }
+            else {
+                return res.status(400).send({ message: 'Such user does not exist check your credentials' })
+            }
+        } else {
+            return res.status(404).send({ message: 'Such user does not exist' });
+        }
+    } catch (err) {
+        return res.status(400).send({ message: 'Such user does not exist check your credentials' })
+    }
+
+}
+
 
 const getAllFuelStation = async (req,res) =>{
     try {
@@ -435,6 +468,7 @@ module.exports = {
     getVanCount,
     getBusCount,
     getBikeCount,
-    getTukCount
+    getTukCount,
+    login
     
 }
