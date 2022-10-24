@@ -11,7 +11,7 @@ const StationRegister = async (req, res) => {
     const finishtime = req.body.finishtime;
     const status = req.body.status;
     const stock = req.body.stock;
-    const queue = req.body.queue;
+    const queue = Number(req.body.queue);
 
     const fuelStation = new FuelStation({
         id,
@@ -287,11 +287,11 @@ const getcount = async (req, res) => {
 
         if(fuealStationData){
            
-            let carCount = parseInt(fuealStationData.queue.Car);
-            let vanCount = parseInt(fuealStationData.queue.Van);
-            let busCount = parseInt(fuealStationData.queue.Bus);
-            let bikeCount = parseInt(fuealStationData.queue.Bike);
-            let tukCount = parseInt(fuealStationData.queue.Tuk);
+            let carCount = fuealStationData.queue.Car;
+            let vanCount = fuealStationData.queue.Van;
+            let busCount = fuealStationData.queue.Bus;
+            let bikeCount = fuealStationData.queue.Bike;
+            let tukCount = fuealStationData.queue.Tuk;
 
 
             let allCount = carCount + vanCount + busCount + bikeCount + tukCount;
@@ -323,7 +323,7 @@ const getCarCount = async (req,res) => {
 
         if(fuealStationData){
            
-            let carCount = parseInt(fuealStationData.queue.Car);
+            let carCount = fuealStationData.queue.Car;
 
            return res.status(200).send({count : carCount});
            
@@ -344,7 +344,7 @@ const getVanCount = async (req,res) => {
 
         if(fuealStationData){
            
-            let vanCount = parseInt(fuealStationData.queue.Van);
+            let vanCount = fuealStationData.queue.Van;
 
            return res.status(200).send({count : vanCount});
            
@@ -365,7 +365,7 @@ const getBusCount = async (req,res) => {
 
         if(fuealStationData){
            
-            let busCount = parseInt(fuealStationData.queue.Bus);
+            let busCount = fuealStationData.queue.Bus;
 
            return res.status(200).send({count : busCount});
            
@@ -386,7 +386,7 @@ const getBikeCount = async (req,res) => {
 
         if(fuealStationData){
            
-            let bikeCount = parseInt(fuealStationData.queue.Bike);
+            let bikeCount = fuealStationData.queue.Bike;
 
            return res.status(200).send({count : bikeCount});
            
@@ -407,7 +407,7 @@ const getTukCount = async (req,res) => {
 
         if(fuealStationData){
            
-            let tukCount = parseInt(fuealStationData.queue.Tuk);
+            let tukCount = fuealStationData.queue.Tuk;
 
            return res.status(200).send({count : tukCount});
            

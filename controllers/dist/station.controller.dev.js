@@ -20,7 +20,7 @@ var StationRegister = function StationRegister(req, res) {
           finishtime = req.body.finishtime;
           status = req.body.status;
           stock = req.body.stock;
-          queue = req.body.queue;
+          queue = Number(req.body.queue);
           fuelStation = new FuelStation({
             id: id,
             name: name,
@@ -598,11 +598,11 @@ var getcount = function getcount(req, res) {
             break;
           }
 
-          carCount = parseInt(fuealStationData.queue.Car);
-          vanCount = parseInt(fuealStationData.queue.Van);
-          busCount = parseInt(fuealStationData.queue.Bus);
-          bikeCount = parseInt(fuealStationData.queue.Bike);
-          tukCount = parseInt(fuealStationData.queue.Tuk);
+          carCount = fuealStationData.queue.Car;
+          vanCount = fuealStationData.queue.Van;
+          busCount = fuealStationData.queue.Bus;
+          bikeCount = fuealStationData.queue.Bike;
+          tukCount = fuealStationData.queue.Tuk;
           allCount = carCount + vanCount + busCount + bikeCount + tukCount; // let countObject = {
           //     carCount : carCount,
           //     vanCount : vanCount,
@@ -660,7 +660,7 @@ var getCarCount = function getCarCount(req, res) {
             break;
           }
 
-          carCount = parseInt(fuealStationData.queue.Car);
+          carCount = fuealStationData.queue.Car;
           return _context11.abrupt("return", res.status(200).send({
             count: carCount
           }));
@@ -710,7 +710,7 @@ var getVanCount = function getVanCount(req, res) {
             break;
           }
 
-          vanCount = parseInt(fuealStationData.queue.Van);
+          vanCount = fuealStationData.queue.Van;
           return _context12.abrupt("return", res.status(200).send({
             count: vanCount
           }));
@@ -760,7 +760,7 @@ var getBusCount = function getBusCount(req, res) {
             break;
           }
 
-          busCount = parseInt(fuealStationData.queue.Bus);
+          busCount = fuealStationData.queue.Bus;
           return _context13.abrupt("return", res.status(200).send({
             count: busCount
           }));
@@ -810,7 +810,7 @@ var getBikeCount = function getBikeCount(req, res) {
             break;
           }
 
-          bikeCount = parseInt(fuealStationData.queue.Bike);
+          bikeCount = fuealStationData.queue.Bike;
           return _context14.abrupt("return", res.status(200).send({
             count: bikeCount
           }));
@@ -860,7 +860,7 @@ var getTukCount = function getTukCount(req, res) {
             break;
           }
 
-          tukCount = parseInt(fuealStationData.queue.Tuk);
+          tukCount = fuealStationData.queue.Tuk;
           return _context15.abrupt("return", res.status(200).send({
             count: tukCount
           }));
