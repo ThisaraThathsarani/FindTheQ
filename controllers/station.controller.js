@@ -50,16 +50,16 @@ const StationRegister = async (req, res) => {
 
 
 const login = async (req, res) => {
-    const stationid = req.body.stationid;
+    const id = req.body.id;
     const password = req.body.password;
 
     try {
-        const fuelStation = await FuelStation.findOne({ stationid: stationid });
+        const fuelStation = await FuelStation.findOne({ id: id });
         if (fuelStation) {
             if (fuelStation && bcrypt.compareSync(password, fuelStation.password)) {
-                const token = auth.generateAccessToken(stationid);
+                const token = auth.generateAccessToken(id);
                 
-                return res.status(200).send({ ...customer.toJSON(), token  });
+                return res.status(200).send({ ...fuelStation.toJSON(), token  });
             }
             else {
                 return res.status(400).send({ message: 'Such user does not exist check your credentials' })

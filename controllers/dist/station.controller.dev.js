@@ -98,17 +98,17 @@ var StationRegister = function StationRegister(req, res) {
 };
 
 var login = function login(req, res) {
-  var stationid, password, fuelStation, token;
+  var id, password, fuelStation, token;
   return regeneratorRuntime.async(function login$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          stationid = req.body.stationid;
+          id = req.body.id;
           password = req.body.password;
           _context2.prev = 2;
           _context2.next = 5;
           return regeneratorRuntime.awrap(FuelStation.findOne({
-            stationid: stationid
+            id: id
           }));
 
         case 5:
@@ -124,8 +124,8 @@ var login = function login(req, res) {
             break;
           }
 
-          token = auth.generateAccessToken(stationid);
-          return _context2.abrupt("return", res.status(200).send(_objectSpread({}, customer.toJSON(), {
+          token = auth.generateAccessToken(id);
+          return _context2.abrupt("return", res.status(200).send(_objectSpread({}, fuelStation.toJSON(), {
             token: token
           })));
 
