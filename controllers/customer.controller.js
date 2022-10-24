@@ -21,7 +21,8 @@ const registerCustomer = async (req, res) => {
         nic,
         phonenumber,
         vehicletype,
-        password
+        password,
+        isJoined : false
     })
 
     try{
@@ -39,6 +40,23 @@ const registerCustomer = async (req, res) => {
 
     }
 
+}
+
+const updateCustomerJoinedStatus = async (req, res) => {
+
+    const nic = req.params.nic;
+    
+    try {
+        const res = await Customer.updateOne(
+            {"nic": nic},
+            {$set: {"isJoined": true }}
+        )
+        if(res){
+            console.log("Ok")
+        }
+    } catch (err) {
+        console.log("error while updating user>>")
+    }
 }
 
 const login = async (req, res) => {
@@ -114,9 +132,12 @@ const getOneUser = async (req, res) => {
     }
 }
 
+
+
 module.exports = {
     registerCustomer,
     login,
     updateTime,
-    getOneUser
+    getOneUser,
+    updateCustomerJoinedStatus
 }
