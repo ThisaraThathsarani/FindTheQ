@@ -11,7 +11,7 @@ const StationRegister = async (req, res) => {
     const finishtime = req.body.finishtime;
     const status = req.body.status;
     const stock = req.body.stock;
-    const queue = Number(req.body.queue);
+    const queue = req.body.queue;
 
     const fuelStation = new FuelStation({
         id,

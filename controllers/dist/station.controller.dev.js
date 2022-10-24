@@ -20,7 +20,7 @@ var StationRegister = function StationRegister(req, res) {
           finishtime = req.body.finishtime;
           status = req.body.status;
           stock = req.body.stock;
-          queue = Number(req.body.queue);
+          queue = req.body.queue;
           fuelStation = new FuelStation({
             id: id,
             name: name,
