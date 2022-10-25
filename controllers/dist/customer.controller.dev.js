@@ -110,7 +110,7 @@ var updateCustomerJoinedStatus = function updateCustomerJoinedStatus(req, res) {
 
           console.log("Ok");
           return _context2.abrupt("return", res.status(200).send({
-            message: 'User Joined to the queue'
+            message: true
           }));
 
         case 8:

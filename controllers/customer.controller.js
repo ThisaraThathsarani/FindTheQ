@@ -55,7 +55,7 @@ const updateCustomerJoinedStatus = async (req, res) => {
         )
         if(response){
             console.log("Ok")
-            return res.status(200).send({ message: 'User Joined to the queue' })
+            return res.status(200).send({ message: true })
         }
     } catch (err) {
         console.log("error while updating user>>")
