@@ -42,7 +42,7 @@ var StationRegister = function StationRegister(req, res) {
             address: address,
             arrivaltime: "-",
             finishtime: "-",
-            status: Available,
+            status: "Available",
             stock: {
               diesel: 0,
               petrol: 0
@@ -471,7 +471,11 @@ var updatestock = function updatestock(req, res) {
             arrivaltime: arrivaltime,
             finishtime: finishtime,
             status: status,
-            stock: req.body.stock,
+            //stock : req.body.stock,
+            stock: {
+              diesel: req.body.stock.diesel,
+              petrol: req.body.stock.petrol
+            },
             queue: queue,
             password: password
           };

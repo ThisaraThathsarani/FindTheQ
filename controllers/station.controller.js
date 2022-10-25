@@ -27,7 +27,7 @@ const StationRegister = async (req, res) => {
         address,
         arrivaltime : "-",
         finishtime : "-",
-        status : Available,
+        status : "Available",
         stock : {diesel :0 , petrol: 0},
         queue : {Car :0 , Van: 0 , Bus: 0 , Bike: 0 , Tuk: 0},
         password
@@ -211,7 +211,11 @@ const updatestock = async (req, res) => {
         arrivaltime : arrivaltime,
         finishtime : finishtime,
         status : status,
-        stock : req.body.stock,
+        //stock : req.body.stock,
+        stock : {
+            diesel: req.body.stock.diesel,
+            petrol: req.body.stock.petrol
+        },
         queue: queue,
         password: password
 
