@@ -35,14 +35,14 @@ const StationRegister = async (req, res) => {
 
     try {
         let response = await fuelStation.save();
-        if(response) {
-            return res.status(201).send({message: "New Station Registered to the Fuel System"})
-        }else {
-            return res.status(500).send({message: "Internal server error"});
+        if (response) {
+            return res.status(201).send({ message: "New Station Registered to the Fuel System" })
+        } else {
+            return res.status(500).send({ message: "Internal server error" });
         }
-    }catch (error) {
+    } catch (error) {
         console.log(error);
-        return res.status(400).send({message: "Error while registering the station to the application"})
+        return res.status(400).send({ message: "Error while registering the station to the application" })
 
     }
 
@@ -58,8 +58,8 @@ const login = async (req, res) => {
         if (fuelStation) {
             if (fuelStation && bcrypt.compareSync(password, fuelStation.password)) {
                 const token = auth.generateAccessToken(id);
-                
-                return res.status(200).send({ ...fuelStation.toJSON(), token  });
+
+                return res.status(200).send({ ...fuelStation.toJSON(), token });
             }
             else {
                 return res.status(400).send({ message: 'Such user does not exist check your credentials' })
@@ -74,15 +74,15 @@ const login = async (req, res) => {
 }
 
 
-const getAllFuelStation = async (req,res) =>{
+const getAllFuelStation = async (req, res) => {
     try {
         let fuelStations = await FuelStation.find();
-        if(fuelStations) {
+        if (fuelStations) {
             return res.json(fuelStations)
-        }else {
-            return res.status(404).send({message: 'Error on retrieving station'})
+        } else {
+            return res.status(404).send({ message: 'Error on retrieving station' })
         }
-    }catch (err) {
+    } catch (err) {
         return res.status(500).send({ message: 'Internal server error' })
     }
 }
@@ -92,11 +92,11 @@ const getOneFuelStation = async (req, res) => {
 
     try {
         let station = await FuelStation.findOne({
-            stationid: id 
+            stationid: id
         });
-        if(station) {
+        if (station) {
             return res.json(station)
-        }else {
+        } else {
             return res.status(404).send({ message: 'No such station found' });
         }
     } catch (err) {
@@ -109,12 +109,12 @@ const searchStation = async (req, res) => {
 
     try {
         let station = await FuelStation.find();
-        if(station) {
+        if (station) {
             FuelStation.find({ name: { $regex: "^" + value + ".*", $options: 'i' } }).then((stations) => {
                 res.json(stations)
-        
+
             })
-        }else {
+        } else {
             return res.status(404).send({ message: 'No such station found' });
         }
     } catch (err) {
@@ -127,12 +127,12 @@ const searchByAddress = async (req, res) => {
 
     try {
         let station = await FuelStation.find();
-        if(station) {
+        if (station) {
             FuelStation.find({ address: { $regex: "^" + value + ".*", $options: 'i' } }).then((stations) => {
                 res.json(stations)
-        
+
             })
-        }else {
+        } else {
             return res.status(404).send({ message: 'No such station found' });
         }
     } catch (err) {
@@ -143,7 +143,7 @@ const searchByAddress = async (req, res) => {
 const updateStatus = async (req, res) => {
     const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({stationid : id});
+    const fuelStation = await FuelStation.findOne({ stationid: id });
 
     const password = fuelStation.password;
 
@@ -157,27 +157,27 @@ const updateStatus = async (req, res) => {
     const queue = fuelStation.queue;
 
     const changeStatus = {
-        id : id,
-        name : name,
-        ownername : ownername,
-        phonenumber : phonenumber,
-        address : address,
-        arrivaltime : arrivaltime,
-        finishtime : finishtime,
-        status : req.body.status,
-        stock : stock,
+        id: id,
+        name: name,
+        ownername: ownername,
+        phonenumber: phonenumber,
+        address: address,
+        arrivaltime: arrivaltime,
+        finishtime: finishtime,
+        status: req.body.status,
+        stock: stock,
         queue: queue,
         password: password
 
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ stationid: id } , changeStatus);
-        if(response){
-            return res.status(200).send({message: 'Successfully updated'})
-        }else {
+        const response = await FuelStation.findOneAndUpdate({ stationid: id }, changeStatus);
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated' })
+        } else {
 
-        return res.status(500).send({ message: 'Internal server error' });
+            return res.status(500).send({ message: 'Internal server error' });
         }
 
     } catch (err) {
@@ -189,7 +189,7 @@ const updateStatus = async (req, res) => {
 const updatestock = async (req, res) => {
     const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({id : id});
+    const fuelStation = await FuelStation.findOne({ id: id });
 
     const password = fuelStation.password;
 
@@ -202,6 +202,8 @@ const updatestock = async (req, res) => {
     const status = fuelStation.status;
     const queue = fuelStation.queue;
 
+    console.log(req.body)
+    
     const changeStatus = {
         id : id,
         name : name,
@@ -221,13 +223,16 @@ const updatestock = async (req, res) => {
 
     }
 
-    try {
-        const response = await FuelStation.findOneAndUpdate({ stationid: id } , changeStatus);
-        if(response){
-            return res.status(200).send({message: 'Successfully updated'})
-        }else {
+    // console.table([ id, req.body.stock.diesel, req.body.stock.petrol])
+  
 
-        return res.status(500).send({ message: 'Internal server error' });
+    try {
+        const response = await FuelStation.findOneAndUpdate({ stationid: id }, changeStatus);
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated' })
+        } else {
+
+            return res.status(500).send({ message: 'Internal server error' });
         }
 
     } catch (err) {
@@ -239,7 +244,7 @@ const updatestock = async (req, res) => {
 const updatelength = async (req, res) => {
     const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({id : id});
+    const fuelStation = await FuelStation.findOne({ id: id });
 
     const password = fuelStation.password;
 
@@ -253,15 +258,15 @@ const updatelength = async (req, res) => {
     const stock = fuelStation.stock;
 
     const changeStatus = {
-        id : id,
-        name : name,
-        ownername : ownername,
-        phonenumber : phonenumber,
-        address : address,
-        arrivaltime : arrivaltime,
-        finishtime : finishtime,
-        status : status,
-        stock : stock,
+        id: id,
+        name: name,
+        ownername: ownername,
+        phonenumber: phonenumber,
+        address: address,
+        arrivaltime: arrivaltime,
+        finishtime: finishtime,
+        status: status,
+        stock: stock,
         queue: {
             Car: req.body.queue.car,
             Van: req.body.queue.van,
@@ -274,12 +279,12 @@ const updatelength = async (req, res) => {
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ id: id } , changeStatus);
-        if(response){
-            return res.status(200).send({message: 'Successfully updated'})
-        }else {
+        const response = await FuelStation.findOneAndUpdate({ id: id }, changeStatus);
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated' })
+        } else {
 
-        return res.status(500).send({ message: 'Internal server error' });
+            return res.status(500).send({ message: 'Internal server error' });
         }
 
     } catch (err) {
@@ -291,7 +296,7 @@ const updatelength = async (req, res) => {
 const updateArrivalTime = async (req, res) => {
     const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({id : id});
+    const fuelStation = await FuelStation.findOne({ id: id });
 
     const password = fuelStation.password;
 
@@ -305,27 +310,27 @@ const updateArrivalTime = async (req, res) => {
     const queue = fuelStation.queue;
 
     const changeStatus = {
-        id : id,
-        name : name,
-        ownername : ownername,
-        phonenumber : phonenumber,
-        address : address,
-        arrivaltime : req.body.arrivaltime,
-        finishtime : finishtime,
-        status : status,
-        stock : stock,
+        id: id,
+        name: name,
+        ownername: ownername,
+        phonenumber: phonenumber,
+        address: address,
+        arrivaltime: req.body.arrivaltime,
+        finishtime: finishtime,
+        status: status,
+        stock: stock,
         queue: queue,
         password: password
 
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ id: id } , changeStatus);
-        if(response){
-            return res.status(200).send({message: 'Successfully updated'})
-        }else {
+        const response = await FuelStation.findOneAndUpdate({ id: id }, changeStatus);
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated' })
+        } else {
 
-        return res.status(500).send({ message: 'Internal server error' });
+            return res.status(500).send({ message: 'Internal server error' });
         }
 
     } catch (err) {
@@ -337,7 +342,7 @@ const updateArrivalTime = async (req, res) => {
 const updateFinishTime = async (req, res) => {
     const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({id : id});
+    const fuelStation = await FuelStation.findOne({ id: id });
 
     const password = fuelStation.password;
 
@@ -351,27 +356,27 @@ const updateFinishTime = async (req, res) => {
     const queue = fuelStation.queue;
 
     const changeStatus = {
-        id : id,
-        name : name,
-        ownername : ownername,
-        phonenumber : phonenumber,
-        address : address,
-        arrivaltime : arrivaltime,
-        finishtime : req.body.finishtime,
-        status : status,
-        stock : stock,
+        id: id,
+        name: name,
+        ownername: ownername,
+        phonenumber: phonenumber,
+        address: address,
+        arrivaltime: arrivaltime,
+        finishtime: req.body.finishtime,
+        status: status,
+        stock: stock,
         queue: queue,
         password: password
 
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ id: id } , changeStatus);
-        if(response){
-            return res.status(200).send({message: 'Successfully updated'})
-        }else {
+        const response = await FuelStation.findOneAndUpdate({ id: id }, changeStatus);
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated' })
+        } else {
 
-        return res.status(500).send({ message: 'Internal server error' });
+            return res.status(500).send({ message: 'Internal server error' });
         }
 
     } catch (err) {
@@ -383,7 +388,7 @@ const updateFinishTime = async (req, res) => {
 const updateDetails = async (req, res) => {
     const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({id : id});
+    const fuelStation = await FuelStation.findOne({ id: id });
 
     const password = fuelStation.password;
 
@@ -396,27 +401,27 @@ const updateDetails = async (req, res) => {
     const queue = fuelStation.queue;
 
     const changeStatus = {
-        id : id,
-        name : name,
-        ownername : ownername,
-        phonenumber : phonenumber,
-        address : address,
-        arrivaltime : arrivaltime,
-        finishtime : finishtime,
-        status : req.body.status,
-        stock : req.body.stock,
+        id: id,
+        name: name,
+        ownername: ownername,
+        phonenumber: phonenumber,
+        address: address,
+        arrivaltime: arrivaltime,
+        finishtime: finishtime,
+        status: req.body.status,
+        stock: req.body.stock,
         queue: queue,
         password: password
 
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ id: id } , changeStatus);
-        if(response){
-            return res.status(200).send({message: 'Successfully updated'})
-        }else {
+        const response = await FuelStation.findOneAndUpdate({ id: id }, changeStatus);
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated' })
+        } else {
 
-        return res.status(500).send({ message: 'Internal server error' });
+            return res.status(500).send({ message: 'Internal server error' });
         }
 
     } catch (err) {
@@ -428,7 +433,7 @@ const updateDetails = async (req, res) => {
 const updateStation = async (req, res) => {
     const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({id : id});
+    const fuelStation = await FuelStation.findOne({ id: id });
 
     const password = fuelStation.password;
 
@@ -440,27 +445,27 @@ const updateStation = async (req, res) => {
     const finishtime = fuelStation.finishtime;
 
     const changeStatus = {
-        id : id,
-        name : name,
-        ownername : ownername,
-        phonenumber : phonenumber,
-        address : address,
-        arrivaltime : arrivaltime,
-        finishtime : finishtime,
-        status : req.body.status,
-        stock : req.body.stock,
+        id: id,
+        name: name,
+        ownername: ownername,
+        phonenumber: phonenumber,
+        address: address,
+        arrivaltime: arrivaltime,
+        finishtime: finishtime,
+        status: req.body.status,
+        stock: req.body.stock,
         queue: queue,
         password: password
 
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ id: id } , changeStatus);
-        if(response){
-            return res.status(200).send({message: 'Successfully updated'})
-        }else {
+        const response = await FuelStation.findOneAndUpdate({ id: id }, changeStatus);
+        if (response) {
+            return res.status(200).send({ message: 'Successfully updated' })
+        } else {
 
-        return res.status(500).send({ message: 'Internal server error' });
+            return res.status(500).send({ message: 'Internal server error' });
         }
 
     } catch (err) {
@@ -474,10 +479,10 @@ const getcount = async (req, res) => {
     console.log("carcount");
     try {
 
-        let fuealStationData = await FuelStation.findOne({id : value});
+        let fuealStationData = await FuelStation.findOne({ id: value });
 
-        if(fuealStationData){
-           
+        if (fuealStationData) {
+
             let carCount = fuealStationData.queue.Car;
             let vanCount = fuealStationData.queue.Van;
             let busCount = fuealStationData.queue.Bus;
@@ -486,7 +491,7 @@ const getcount = async (req, res) => {
 
 
             let allCount = carCount + vanCount + busCount + bikeCount + tukCount;
-         
+
             // let countObject = {
             //     carCount : carCount,
             //     vanCount : vanCount,
@@ -495,9 +500,9 @@ const getcount = async (req, res) => {
             //     allCount : allCount
             // }
 
-           return res.status(200).send({count : allCount});
-           
-        }else {
+            return res.status(200).send({ count: allCount });
+
+        } else {
             return res.status(404).send({ message: 'No such vehicle type found' });
         }
     } catch (err) {
@@ -505,20 +510,20 @@ const getcount = async (req, res) => {
     }
 }
 
-const getCarCount = async (req,res) => {
+const getCarCount = async (req, res) => {
     let value = req.params.id.trim();
-   
+
     try {
 
-        let fuealStationData = await FuelStation.findOne({id : value});
+        let fuealStationData = await FuelStation.findOne({ id: value });
 
-        if(fuealStationData){
-           
+        if (fuealStationData) {
+
             let carCount = fuealStationData.queue.Car;
 
-           return res.status(200).send({count : carCount});
-           
-        }else {
+            return res.status(200).send({ count: carCount });
+
+        } else {
             return res.status(404).send({ message: 'No such vehicle type found' });
         }
     } catch (err) {
@@ -526,20 +531,20 @@ const getCarCount = async (req,res) => {
     }
 }
 
-const getVanCount = async (req,res) => {
+const getVanCount = async (req, res) => {
     let value = req.params.id.trim();
-   
+
     try {
 
-        let fuealStationData = await FuelStation.findOne({id : value});
+        let fuealStationData = await FuelStation.findOne({ id: value });
 
-        if(fuealStationData){
-           
+        if (fuealStationData) {
+
             let vanCount = fuealStationData.queue.Van;
 
-           return res.status(200).send({count : vanCount});
-           
-        }else {
+            return res.status(200).send({ count: vanCount });
+
+        } else {
             return res.status(404).send({ message: 'No such vehicle type found' });
         }
     } catch (err) {
@@ -547,20 +552,20 @@ const getVanCount = async (req,res) => {
     }
 }
 
-const getBusCount = async (req,res) => {
+const getBusCount = async (req, res) => {
     let value = req.params.id.trim();
-   
+
     try {
 
-        let fuealStationData = await FuelStation.findOne({id : value});
+        let fuealStationData = await FuelStation.findOne({ id: value });
 
-        if(fuealStationData){
-           
+        if (fuealStationData) {
+
             let busCount = fuealStationData.queue.Bus;
 
-           return res.status(200).send({count : busCount});
-           
-        }else {
+            return res.status(200).send({ count: busCount });
+
+        } else {
             return res.status(404).send({ message: 'No such vehicle type found' });
         }
     } catch (err) {
@@ -568,20 +573,20 @@ const getBusCount = async (req,res) => {
     }
 }
 
-const getBikeCount = async (req,res) => {
+const getBikeCount = async (req, res) => {
     let value = req.params.id.trim();
-   
+
     try {
 
-        let fuealStationData = await FuelStation.findOne({id : value});
+        let fuealStationData = await FuelStation.findOne({ id: value });
 
-        if(fuealStationData){
-           
+        if (fuealStationData) {
+
             let bikeCount = fuealStationData.queue.Bike;
 
-           return res.status(200).send({count : bikeCount});
-           
-        }else {
+            return res.status(200).send({ count: bikeCount });
+
+        } else {
             return res.status(404).send({ message: 'No such vehicle type found' });
         }
     } catch (err) {
@@ -589,20 +594,20 @@ const getBikeCount = async (req,res) => {
     }
 }
 
-const getTukCount = async (req,res) => {
+const getTukCount = async (req, res) => {
     let value = req.params.id.trim();
-   
+
     try {
 
-        let fuealStationData = await FuelStation.findOne({id : value});
+        let fuealStationData = await FuelStation.findOne({ id: value });
 
-        if(fuealStationData){
-           
+        if (fuealStationData) {
+
             let tukCount = fuealStationData.queue.Tuk;
 
-           return res.status(200).send({count : tukCount});
-           
-        }else {
+            return res.status(200).send({ count: tukCount });
+
+        } else {
             return res.status(404).send({ message: 'No such vehicle type found' });
         }
     } catch (err) {
@@ -630,5 +635,5 @@ module.exports = {
     login,
     updateArrivalTime,
     updateFinishTime
-    
+
 }

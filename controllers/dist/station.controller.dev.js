@@ -462,6 +462,7 @@ var updatestock = function updatestock(req, res) {
           finishtime = fuelStation.finishtime;
           status = fuelStation.status;
           queue = fuelStation.queue;
+          console.log(req.body);
           changeStatus = {
             id: id,
             name: name,
@@ -478,18 +479,19 @@ var updatestock = function updatestock(req, res) {
             },
             queue: queue,
             password: password
-          };
-          _context8.prev = 14;
-          _context8.next = 17;
+          }; // console.table([ id, req.body.stock.diesel, req.body.stock.petrol])
+
+          _context8.prev = 15;
+          _context8.next = 18;
           return regeneratorRuntime.awrap(FuelStation.findOneAndUpdate({
             stationid: id
           }, changeStatus));
 
-        case 17:
+        case 18:
           response = _context8.sent;
 
           if (!response) {
-            _context8.next = 22;
+            _context8.next = 23;
             break;
           }
 
@@ -497,28 +499,28 @@ var updatestock = function updatestock(req, res) {
             message: 'Successfully updated'
           }));
 
-        case 22:
+        case 23:
           return _context8.abrupt("return", res.status(500).send({
             message: 'Internal server error'
           }));
 
-        case 23:
-          _context8.next = 28;
+        case 24:
+          _context8.next = 29;
           break;
 
-        case 25:
-          _context8.prev = 25;
-          _context8.t0 = _context8["catch"](14);
+        case 26:
+          _context8.prev = 26;
+          _context8.t0 = _context8["catch"](15);
           return _context8.abrupt("return", res.status(400).send({
             message: 'Unable to update'
           }));
 
-        case 28:
+        case 29:
         case "end":
           return _context8.stop();
       }
     }
-  }, null, null, [[14, 25]]);
+  }, null, null, [[15, 26]]);
 };
 
 var updatelength = function updatelength(req, res) {
