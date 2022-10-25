@@ -25,9 +25,9 @@ const StationRegister = async (req, res) => {
         ownername,
         phonenumber,
         address,
-        arrivaltime : 0,
-        finishtime : 0,
-        status : 0,
+        arrivaltime : "-",
+        finishtime : "-",
+        status : Available,
         stock : {diesel :0 , petrol: 0},
         queue : {Car :0 , Van: 0 , Bus: 0 , Bike: 0 , Tuk: 0},
         password

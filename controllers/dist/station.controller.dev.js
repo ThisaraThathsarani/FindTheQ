@@ -40,9 +40,9 @@ var StationRegister = function StationRegister(req, res) {
             ownername: ownername,
             phonenumber: phonenumber,
             address: address,
-            arrivaltime: 0,
-            finishtime: 0,
-            status: 0,
+            arrivaltime: "-",
+            finishtime: "-",
+            status: Available,
             stock: {
               diesel: 0,
               petrol: 0
