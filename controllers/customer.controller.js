@@ -49,11 +49,11 @@ const updateCustomerJoinedStatus = async (req, res) => {
     const email = req.params.email;
 
     try {
-        const res = await Customer.updateOne(
+        const response = await Customer.updateOne(
             {"email": email},
             {$set: {"isJoined": true }}
         )
-        if(res){
+        if(response){
             console.log("Ok")
             return res.status(200).send({ message: 'User Joined to the queue' })
         }

@@ -84,8 +84,7 @@ var registerCustomer = function registerCustomer(req, res) {
 };
 
 var updateCustomerJoinedStatus = function updateCustomerJoinedStatus(req, res) {
-  var email, _res;
-
+  var email, response;
   return regeneratorRuntime.async(function updateCustomerJoinedStatus$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -102,15 +101,15 @@ var updateCustomerJoinedStatus = function updateCustomerJoinedStatus(req, res) {
           }));
 
         case 4:
-          _res = _context2.sent;
+          response = _context2.sent;
 
-          if (!_res) {
+          if (!response) {
             _context2.next = 8;
             break;
           }
 
           console.log("Ok");
-          return _context2.abrupt("return", _res.status(200).send({
+          return _context2.abrupt("return", res.status(200).send({
             message: 'User Joined to the queue'
           }));
 
