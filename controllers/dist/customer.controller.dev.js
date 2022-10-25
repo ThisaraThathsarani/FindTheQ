@@ -133,66 +133,116 @@ var updateCustomerJoinedStatus = function updateCustomerJoinedStatus(req, res) {
   }, null, null, [[1, 10]]);
 };
 
-var login = function login(req, res) {
-  var email, password, customer, token;
-  return regeneratorRuntime.async(function login$(_context3) {
+var setStatus = function setStatus(req, res) {
+  var email, response;
+  return regeneratorRuntime.async(function setStatus$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
+          email = req.params.email;
+          _context3.prev = 1;
+          _context3.next = 4;
+          return regeneratorRuntime.awrap(Customer.updateOne({
+            "email": email
+          }, {
+            $set: {
+              "isJoined": false
+            }
+          }));
+
+        case 4:
+          response = _context3.sent;
+
+          if (!response) {
+            _context3.next = 8;
+            break;
+          }
+
+          console.log("Ok");
+          return _context3.abrupt("return", res.status(200).send({
+            message: true
+          }));
+
+        case 8:
+          _context3.next = 14;
+          break;
+
+        case 10:
+          _context3.prev = 10;
+          _context3.t0 = _context3["catch"](1);
+          console.log("error while updating user>>");
+          return _context3.abrupt("return", res.status(500).send({
+            message: 'Internal server error'
+          }));
+
+        case 14:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, null, null, [[1, 10]]);
+};
+
+var login = function login(req, res) {
+  var email, password, customer, token;
+  return regeneratorRuntime.async(function login$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
           email = req.body.email;
           password = req.body.password;
-          _context3.prev = 2;
-          _context3.next = 5;
+          _context4.prev = 2;
+          _context4.next = 5;
           return regeneratorRuntime.awrap(Customer.findOne({
             email: email
           }));
 
         case 5:
-          customer = _context3.sent;
+          customer = _context4.sent;
 
           if (!customer) {
-            _context3.next = 15;
+            _context4.next = 15;
             break;
           }
 
           if (!(customer && bcrypt.compareSync(password, customer.password))) {
-            _context3.next = 12;
+            _context4.next = 12;
             break;
           }
 
           token = auth.generateAccessToken(email);
-          return _context3.abrupt("return", res.status(200).send(_objectSpread({}, customer.toJSON(), {
+          return _context4.abrupt("return", res.status(200).send(_objectSpread({}, customer.toJSON(), {
             token: token
           })));
 
         case 12:
-          return _context3.abrupt("return", res.status(400).send({
+          return _context4.abrupt("return", res.status(400).send({
             message: 'Such user does not exist check your credentials'
           }));
 
         case 13:
-          _context3.next = 16;
+          _context4.next = 16;
           break;
 
         case 15:
-          return _context3.abrupt("return", res.status(404).send({
+          return _context4.abrupt("return", res.status(404).send({
             message: 'Such user does not exist'
           }));
 
         case 16:
-          _context3.next = 21;
+          _context4.next = 21;
           break;
 
         case 18:
-          _context3.prev = 18;
-          _context3.t0 = _context3["catch"](2);
-          return _context3.abrupt("return", res.status(400).send({
+          _context4.prev = 18;
+          _context4.t0 = _context4["catch"](2);
+          return _context4.abrupt("return", res.status(400).send({
             message: 'Such user does not exist check your credentials'
           }));
 
         case 21:
         case "end":
-          return _context3.stop();
+          return _context4.stop();
       }
     }
   }, null, null, [[2, 18]]);
@@ -200,18 +250,18 @@ var login = function login(req, res) {
 
 var updateTime = function updateTime(req, res) {
   var vehicleid, customer, password, changeTime, response;
-  return regeneratorRuntime.async(function updateTime$(_context4) {
+  return regeneratorRuntime.async(function updateTime$(_context5) {
     while (1) {
-      switch (_context4.prev = _context4.next) {
+      switch (_context5.prev = _context5.next) {
         case 0:
           vehicleid = req.params.vehicleid;
-          _context4.next = 3;
+          _context5.next = 3;
           return regeneratorRuntime.awrap(Customer.findOne({
             vehicleid: vehicleid
           }));
 
         case 3:
-          customer = _context4.sent;
+          customer = _context5.sent;
           password = customer.password;
           changeTime = {
             customername: req.body.customername,
@@ -221,43 +271,43 @@ var updateTime = function updateTime(req, res) {
             vehicletype: req.body.vehicletype,
             password: password
           };
-          _context4.prev = 6;
-          _context4.next = 9;
+          _context5.prev = 6;
+          _context5.next = 9;
           return regeneratorRuntime.awrap(Customer.findOneAndUpdate({
             vehicleid: vehicleid
           }, changeTime));
 
         case 9:
-          response = _context4.sent;
+          response = _context5.sent;
 
           if (!response) {
-            _context4.next = 14;
+            _context5.next = 14;
             break;
           }
 
-          return _context4.abrupt("return", res.status(200).send({
+          return _context5.abrupt("return", res.status(200).send({
             message: 'Successfully update time'
           }));
 
         case 14:
-          return _context4.abrupt("return", res.status(500).send({
+          return _context5.abrupt("return", res.status(500).send({
             message: 'Internal server error'
           }));
 
         case 15:
-          _context4.next = 20;
+          _context5.next = 20;
           break;
 
         case 17:
-          _context4.prev = 17;
-          _context4.t0 = _context4["catch"](6);
-          return _context4.abrupt("return", res.status(400).send({
+          _context5.prev = 17;
+          _context5.t0 = _context5["catch"](6);
+          return _context5.abrupt("return", res.status(400).send({
             message: 'Unable to update'
           }));
 
         case 20:
         case "end":
-          return _context4.stop();
+          return _context5.stop();
       }
     }
   }, null, null, [[6, 17]]);
@@ -265,46 +315,46 @@ var updateTime = function updateTime(req, res) {
 
 var getOneUser = function getOneUser(req, res) {
   var email, customer;
-  return regeneratorRuntime.async(function getOneUser$(_context5) {
+  return regeneratorRuntime.async(function getOneUser$(_context6) {
     while (1) {
-      switch (_context5.prev = _context5.next) {
+      switch (_context6.prev = _context6.next) {
         case 0:
           email = req.params.email;
-          _context5.prev = 1;
-          _context5.next = 4;
+          _context6.prev = 1;
+          _context6.next = 4;
           return regeneratorRuntime.awrap(Customer.findOne({
             email: email
           }));
 
         case 4:
-          customer = _context5.sent;
+          customer = _context6.sent;
 
           if (!customer) {
-            _context5.next = 9;
+            _context6.next = 9;
             break;
           }
 
-          return _context5.abrupt("return", res.json(customer));
+          return _context6.abrupt("return", res.json(customer));
 
         case 9:
-          return _context5.abrupt("return", res.status(404).send({
+          return _context6.abrupt("return", res.status(404).send({
             message: 'No such customer found'
           }));
 
         case 10:
-          _context5.next = 15;
+          _context6.next = 15;
           break;
 
         case 12:
-          _context5.prev = 12;
-          _context5.t0 = _context5["catch"](1);
-          return _context5.abrupt("return", res.status(500).send({
+          _context6.prev = 12;
+          _context6.t0 = _context6["catch"](1);
+          return _context6.abrupt("return", res.status(500).send({
             message: 'Internal Server Error'
           }));
 
         case 15:
         case "end":
-          return _context5.stop();
+          return _context6.stop();
       }
     }
   }, null, null, [[1, 12]]);
@@ -315,6 +365,7 @@ module.exports = {
   login: login,
   updateTime: updateTime,
   getOneUser: getOneUser,
-  updateCustomerJoinedStatus: updateCustomerJoinedStatus
+  updateCustomerJoinedStatus: updateCustomerJoinedStatus,
+  setStatus: setStatus
 };
 //# sourceMappingURL=customer.controller.dev.js.map

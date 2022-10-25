@@ -63,6 +63,26 @@ const updateCustomerJoinedStatus = async (req, res) => {
     }
 }
 
+const setStatus = async (req, res) => {
+
+    const email = req.params.email;
+
+    try {
+        const response = await Customer.updateOne(
+            {"email": email},
+            {$set: {"isJoined": false }}
+        )
+        if(response){
+            console.log("Ok")
+            return res.status(200).send({ message: true })
+        }
+    } catch (err) {
+        console.log("error while updating user>>")
+        return res.status(500).send({ message: 'Internal server error' })
+    }
+}
+
+
 const login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -143,5 +163,6 @@ module.exports = {
     login,
     updateTime,
     getOneUser,
-    updateCustomerJoinedStatus
+    updateCustomerJoinedStatus,
+    setStatus
 }

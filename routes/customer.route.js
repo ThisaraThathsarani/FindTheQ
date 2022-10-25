@@ -10,5 +10,6 @@ router.post('/login', customerController.login);
 router.put('/:vehicleid', customerController.updateTime);
 router.get('/:email', customerController.getOneUser);
 router.put('/updateJoined/:email', customerController.updateCustomerJoinedStatus);
+router.put('/setStatus/:email', customerController.setStatus);
 
 module.exports = router;
