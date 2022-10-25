@@ -104,24 +104,34 @@ var updateCustomerJoinedStatus = function updateCustomerJoinedStatus(req, res) {
         case 4:
           _res = _context2.sent;
 
-          if (_res) {
-            console.log("Ok");
+          if (!_res) {
+            _context2.next = 8;
+            break;
           }
 
-          _context2.next = 11;
-          break;
+          console.log("Ok");
+          return _context2.abrupt("return", _res.status(200).send({
+            message: 'User Joined to the queue'
+          }));
 
         case 8:
-          _context2.prev = 8;
+          _context2.next = 14;
+          break;
+
+        case 10:
+          _context2.prev = 10;
           _context2.t0 = _context2["catch"](1);
           console.log("error while updating user>>");
+          return _context2.abrupt("return", res.status(500).send({
+            message: 'Internal server error'
+          }));
 
-        case 11:
+        case 14:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[1, 8]]);
+  }, null, null, [[1, 10]]);
 };
 
 var login = function login(req, res) {

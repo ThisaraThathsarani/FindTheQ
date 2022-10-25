@@ -59,6 +59,7 @@ const updateCustomerJoinedStatus = async (req, res) => {
         }
     } catch (err) {
         console.log("error while updating user>>")
+        return res.status(500).send({ message: 'Internal server error' })
     }
 }
 
