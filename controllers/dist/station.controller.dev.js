@@ -219,7 +219,7 @@ var getOneFuelStation = function getOneFuelStation(req, res) {
           _context4.prev = 1;
           _context4.next = 4;
           return regeneratorRuntime.awrap(FuelStation.findOne({
-            stationid: id
+            id: id
           }));
 
         case 4:
@@ -398,7 +398,7 @@ var updateStatus = function updateStatus(req, res) {
             address: address,
             arrivaltime: arrivaltime,
             finishtime: finishtime,
-            status: req.body.status,
+            status: req.params.status,
             stock: stock,
             queue: queue,
             password: password

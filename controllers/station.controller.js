@@ -93,7 +93,7 @@ const getOneFuelStation = async (req, res) => {
 
     try {
         let station = await FuelStation.findOne({
-            stationid: id
+            id: id
         });
         if (station) {
             return res.json(station)
