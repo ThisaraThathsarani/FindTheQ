@@ -168,7 +168,7 @@ const updateStatus = async (req, res) => {
         address: address,
         arrivaltime: arrivaltime,
         finishtime: finishtime,
-        status: req.body.status,
+        status: req.params.status,
         stock: stock,
         queue: queue,
         password: password
