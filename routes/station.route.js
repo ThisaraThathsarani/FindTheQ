@@ -17,8 +17,7 @@ router.put('/updateStatus/:id' , fuelStationController.updateStatus);
 router.put('/updateStock/:id' , fuelStationController.updatestock);
 router.put('/updateQueue/:id' , fuelStationController.updatelength);
 router.put('/updateDetails/:id' , fuelStationController.updateDetails);
-router.put('/updateArrivalTime/:id' , fuelStationController.updateArrivalTime);
-router.put('/updateFinishTime/:id' , fuelStationController.updateFinishTime);
+router.put('/updateStockTime/:id' , fuelStationController.updateStockTime);
 
 router.get('/getCount/:id' , fuelStationController.getcount);
 router.get('/getCarCount/:id' , fuelStationController.getCarCount);

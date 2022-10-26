@@ -610,7 +610,7 @@ var updatelength = function updatelength(req, res) {
       }
     }
   }, null, null, [[14, 25]]);
-}; //update arrival time 
+}; //update stock time time 
 
 
 var updateStockTime = function updateStockTime(req, res) {
@@ -688,12 +688,12 @@ var updateStockTime = function updateStockTime(req, res) {
       }
     }
   }, null, null, [[13, 24]]);
-}; //update finish time
+}; //update station details
 
 
-var updateFinishTime = function updateFinishTime(req, res) {
-  var id, fuelStation, password, name, ownername, phonenumber, address, arrivaltime, status, stock, queue, changeStatus, response;
-  return regeneratorRuntime.async(function updateFinishTime$(_context11) {
+var updateDetails = function updateDetails(req, res) {
+  var id, fuelStation, password, name, ownername, phonenumber, address, arrivaltime, finishtime, queue, changeStatus, response;
+  return regeneratorRuntime.async(function updateDetails$(_context11) {
     while (1) {
       switch (_context11.prev = _context11.next) {
         case 0:
@@ -705,85 +705,6 @@ var updateFinishTime = function updateFinishTime(req, res) {
 
         case 3:
           fuelStation = _context11.sent;
-          password = fuelStation.password;
-          name = fuelStation.name;
-          ownername = fuelStation.ownername;
-          phonenumber = fuelStation.phonenumber;
-          address = fuelStation.address;
-          arrivaltime = fuelStation.arrivaltime;
-          status = fuelStation.status;
-          stock = fuelStation.stock;
-          queue = fuelStation.queue;
-          changeStatus = {
-            id: id,
-            name: name,
-            ownername: ownername,
-            phonenumber: phonenumber,
-            address: address,
-            arrivaltime: arrivaltime,
-            finishtime: req.body.finishtime,
-            status: status,
-            stock: stock,
-            queue: queue,
-            password: password
-          };
-          _context11.prev = 14;
-          _context11.next = 17;
-          return regeneratorRuntime.awrap(FuelStation.findOneAndUpdate({
-            id: id
-          }, changeStatus));
-
-        case 17:
-          response = _context11.sent;
-
-          if (!response) {
-            _context11.next = 22;
-            break;
-          }
-
-          return _context11.abrupt("return", res.status(200).send({
-            message: 'Successfully updated'
-          }));
-
-        case 22:
-          return _context11.abrupt("return", res.status(500).send({
-            message: 'Internal server error'
-          }));
-
-        case 23:
-          _context11.next = 28;
-          break;
-
-        case 25:
-          _context11.prev = 25;
-          _context11.t0 = _context11["catch"](14);
-          return _context11.abrupt("return", res.status(400).send({
-            message: 'Unable to update'
-          }));
-
-        case 28:
-        case "end":
-          return _context11.stop();
-      }
-    }
-  }, null, null, [[14, 25]]);
-}; //update station details
-
-
-var updateDetails = function updateDetails(req, res) {
-  var id, fuelStation, password, name, ownername, phonenumber, address, arrivaltime, finishtime, queue, changeStatus, response;
-  return regeneratorRuntime.async(function updateDetails$(_context12) {
-    while (1) {
-      switch (_context12.prev = _context12.next) {
-        case 0:
-          id = req.params.id;
-          _context12.next = 3;
-          return regeneratorRuntime.awrap(FuelStation.findOne({
-            id: id
-          }));
-
-        case 3:
-          fuelStation = _context12.sent;
           password = fuelStation.password;
           name = fuelStation.name;
           ownername = fuelStation.ownername;
@@ -805,43 +726,43 @@ var updateDetails = function updateDetails(req, res) {
             queue: queue,
             password: password
           };
-          _context12.prev = 13;
-          _context12.next = 16;
+          _context11.prev = 13;
+          _context11.next = 16;
           return regeneratorRuntime.awrap(FuelStation.findOneAndUpdate({
             id: id
           }, changeStatus));
 
         case 16:
-          response = _context12.sent;
+          response = _context11.sent;
 
           if (!response) {
-            _context12.next = 21;
+            _context11.next = 21;
             break;
           }
 
-          return _context12.abrupt("return", res.status(200).send({
+          return _context11.abrupt("return", res.status(200).send({
             message: 'Successfully updated'
           }));
 
         case 21:
-          return _context12.abrupt("return", res.status(500).send({
+          return _context11.abrupt("return", res.status(500).send({
             message: 'Internal server error'
           }));
 
         case 22:
-          _context12.next = 27;
+          _context11.next = 27;
           break;
 
         case 24:
-          _context12.prev = 24;
-          _context12.t0 = _context12["catch"](13);
-          return _context12.abrupt("return", res.status(400).send({
+          _context11.prev = 24;
+          _context11.t0 = _context11["catch"](13);
+          return _context11.abrupt("return", res.status(400).send({
             message: 'Unable to update'
           }));
 
         case 27:
         case "end":
-          return _context12.stop();
+          return _context11.stop();
       }
     }
   }, null, null, [[13, 24]]);
@@ -850,23 +771,23 @@ var updateDetails = function updateDetails(req, res) {
 
 var getcount = function getcount(req, res) {
   var value, fuealStationData, carCount, vanCount, busCount, bikeCount, tukCount, allCount;
-  return regeneratorRuntime.async(function getcount$(_context13) {
+  return regeneratorRuntime.async(function getcount$(_context12) {
     while (1) {
-      switch (_context13.prev = _context13.next) {
+      switch (_context12.prev = _context12.next) {
         case 0:
           value = req.params.id.trim();
           console.log("carcount");
-          _context13.prev = 2;
-          _context13.next = 5;
+          _context12.prev = 2;
+          _context12.next = 5;
           return regeneratorRuntime.awrap(FuelStation.findOne({
             id: value
           }));
 
         case 5:
-          fuealStationData = _context13.sent;
+          fuealStationData = _context12.sent;
 
           if (!fuealStationData) {
-            _context13.next = 16;
+            _context12.next = 16;
             break;
           }
 
@@ -876,29 +797,29 @@ var getcount = function getcount(req, res) {
           bikeCount = fuealStationData.queue.Bike;
           tukCount = fuealStationData.queue.Tuk;
           allCount = carCount + vanCount + busCount + bikeCount + tukCount;
-          return _context13.abrupt("return", res.status(200).send({
+          return _context12.abrupt("return", res.status(200).send({
             count: allCount
           }));
 
         case 16:
-          return _context13.abrupt("return", res.status(404).send({
+          return _context12.abrupt("return", res.status(404).send({
             message: 'No such vehicle type found'
           }));
 
         case 17:
-          _context13.next = 22;
+          _context12.next = 22;
           break;
 
         case 19:
-          _context13.prev = 19;
-          _context13.t0 = _context13["catch"](2);
-          return _context13.abrupt("return", res.status(500).send({
+          _context12.prev = 19;
+          _context12.t0 = _context12["catch"](2);
+          return _context12.abrupt("return", res.status(500).send({
             message: 'Internal Server Error'
           }));
 
         case 22:
         case "end":
-          return _context13.stop();
+          return _context12.stop();
       }
     }
   }, null, null, [[2, 19]]);
@@ -907,7 +828,58 @@ var getcount = function getcount(req, res) {
 
 var getCarCount = function getCarCount(req, res) {
   var value, fuealStationData, carCount;
-  return regeneratorRuntime.async(function getCarCount$(_context14) {
+  return regeneratorRuntime.async(function getCarCount$(_context13) {
+    while (1) {
+      switch (_context13.prev = _context13.next) {
+        case 0:
+          value = req.params.id.trim();
+          _context13.prev = 1;
+          _context13.next = 4;
+          return regeneratorRuntime.awrap(FuelStation.findOne({
+            id: value
+          }));
+
+        case 4:
+          fuealStationData = _context13.sent;
+
+          if (!fuealStationData) {
+            _context13.next = 10;
+            break;
+          }
+
+          carCount = fuealStationData.queue.Car;
+          return _context13.abrupt("return", res.status(200).send({
+            count: carCount
+          }));
+
+        case 10:
+          return _context13.abrupt("return", res.status(404).send({
+            message: 'No such vehicle type found'
+          }));
+
+        case 11:
+          _context13.next = 16;
+          break;
+
+        case 13:
+          _context13.prev = 13;
+          _context13.t0 = _context13["catch"](1);
+          return _context13.abrupt("return", res.status(500).send({
+            message: 'Internal Server Error'
+          }));
+
+        case 16:
+        case "end":
+          return _context13.stop();
+      }
+    }
+  }, null, null, [[1, 13]]);
+}; //get Van count
+
+
+var getVanCount = function getVanCount(req, res) {
+  var value, fuealStationData, vanCount;
+  return regeneratorRuntime.async(function getVanCount$(_context14) {
     while (1) {
       switch (_context14.prev = _context14.next) {
         case 0:
@@ -926,9 +898,9 @@ var getCarCount = function getCarCount(req, res) {
             break;
           }
 
-          carCount = fuealStationData.queue.Car;
+          vanCount = fuealStationData.queue.Van;
           return _context14.abrupt("return", res.status(200).send({
-            count: carCount
+            count: vanCount
           }));
 
         case 10:
@@ -953,12 +925,12 @@ var getCarCount = function getCarCount(req, res) {
       }
     }
   }, null, null, [[1, 13]]);
-}; //get Van count
+}; //get bus count
 
 
-var getVanCount = function getVanCount(req, res) {
-  var value, fuealStationData, vanCount;
-  return regeneratorRuntime.async(function getVanCount$(_context15) {
+var getBusCount = function getBusCount(req, res) {
+  var value, fuealStationData, busCount;
+  return regeneratorRuntime.async(function getBusCount$(_context15) {
     while (1) {
       switch (_context15.prev = _context15.next) {
         case 0:
@@ -977,9 +949,9 @@ var getVanCount = function getVanCount(req, res) {
             break;
           }
 
-          vanCount = fuealStationData.queue.Van;
+          busCount = fuealStationData.queue.Bus;
           return _context15.abrupt("return", res.status(200).send({
-            count: vanCount
+            count: busCount
           }));
 
         case 10:
@@ -1004,12 +976,12 @@ var getVanCount = function getVanCount(req, res) {
       }
     }
   }, null, null, [[1, 13]]);
-}; //get bus count
+}; //get bike count
 
 
-var getBusCount = function getBusCount(req, res) {
-  var value, fuealStationData, busCount;
-  return regeneratorRuntime.async(function getBusCount$(_context16) {
+var getBikeCount = function getBikeCount(req, res) {
+  var value, fuealStationData, bikeCount;
+  return regeneratorRuntime.async(function getBikeCount$(_context16) {
     while (1) {
       switch (_context16.prev = _context16.next) {
         case 0:
@@ -1028,9 +1000,9 @@ var getBusCount = function getBusCount(req, res) {
             break;
           }
 
-          busCount = fuealStationData.queue.Bus;
+          bikeCount = fuealStationData.queue.Bike;
           return _context16.abrupt("return", res.status(200).send({
-            count: busCount
+            count: bikeCount
           }));
 
         case 10:
@@ -1055,12 +1027,12 @@ var getBusCount = function getBusCount(req, res) {
       }
     }
   }, null, null, [[1, 13]]);
-}; //get bike count
+}; //get tuke count
 
 
-var getBikeCount = function getBikeCount(req, res) {
-  var value, fuealStationData, bikeCount;
-  return regeneratorRuntime.async(function getBikeCount$(_context17) {
+var getTukCount = function getTukCount(req, res) {
+  var value, fuealStationData, tukCount;
+  return regeneratorRuntime.async(function getTukCount$(_context17) {
     while (1) {
       switch (_context17.prev = _context17.next) {
         case 0:
@@ -1079,9 +1051,9 @@ var getBikeCount = function getBikeCount(req, res) {
             break;
           }
 
-          bikeCount = fuealStationData.queue.Bike;
+          tukCount = fuealStationData.queue.Tuk;
           return _context17.abrupt("return", res.status(200).send({
-            count: bikeCount
+            count: tukCount
           }));
 
         case 10:
@@ -1103,57 +1075,6 @@ var getBikeCount = function getBikeCount(req, res) {
         case 16:
         case "end":
           return _context17.stop();
-      }
-    }
-  }, null, null, [[1, 13]]);
-}; //get tuke count
-
-
-var getTukCount = function getTukCount(req, res) {
-  var value, fuealStationData, tukCount;
-  return regeneratorRuntime.async(function getTukCount$(_context18) {
-    while (1) {
-      switch (_context18.prev = _context18.next) {
-        case 0:
-          value = req.params.id.trim();
-          _context18.prev = 1;
-          _context18.next = 4;
-          return regeneratorRuntime.awrap(FuelStation.findOne({
-            id: value
-          }));
-
-        case 4:
-          fuealStationData = _context18.sent;
-
-          if (!fuealStationData) {
-            _context18.next = 10;
-            break;
-          }
-
-          tukCount = fuealStationData.queue.Tuk;
-          return _context18.abrupt("return", res.status(200).send({
-            count: tukCount
-          }));
-
-        case 10:
-          return _context18.abrupt("return", res.status(404).send({
-            message: 'No such vehicle type found'
-          }));
-
-        case 11:
-          _context18.next = 16;
-          break;
-
-        case 13:
-          _context18.prev = 13;
-          _context18.t0 = _context18["catch"](1);
-          return _context18.abrupt("return", res.status(500).send({
-            message: 'Internal Server Error'
-          }));
-
-        case 16:
-        case "end":
-          return _context18.stop();
       }
     }
   }, null, null, [[1, 13]]);

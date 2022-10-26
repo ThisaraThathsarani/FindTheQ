@@ -292,7 +292,7 @@ const updatelength = async (req, res) => {
 
 }
 
-//update arrival time 
+//update stock time time 
 const updateStockTime = async (req, res) => {
     const id = req.params.id;
 
@@ -338,52 +338,6 @@ const updateStockTime = async (req, res) => {
 
 }
 
-//update finish time
-const updateFinishTime = async (req, res) => {
-    const id = req.params.id;
-
-    const fuelStation = await FuelStation.findOne({ id: id });
-
-    const password = fuelStation.password;
-
-    const name = fuelStation.name;
-    const ownername = fuelStation.ownername;
-    const phonenumber = fuelStation.phonenumber;
-    const address = fuelStation.address;
-    const arrivaltime = fuelStation.arrivaltime;
-    const status = fuelStation.status;
-    const stock = fuelStation.stock;
-    const queue = fuelStation.queue;
-
-    const changeStatus = {
-        id: id,
-        name: name,
-        ownername: ownername,
-        phonenumber: phonenumber,
-        address: address,
-        arrivaltime: arrivaltime,
-        finishtime: req.body.finishtime,
-        status: status,
-        stock: stock,
-        queue: queue,
-        password: password
-
-    }
-
-    try {
-        const response = await FuelStation.findOneAndUpdate({ id: id }, changeStatus);
-        if (response) {
-            return res.status(200).send({ message: 'Successfully updated' })
-        } else {
-
-            return res.status(500).send({ message: 'Internal server error' });
-        }
-
-    } catch (err) {
-        return res.status(400).send({ message: 'Unable to update' })
-    }
-
-}
 
 //update station details
 const updateDetails = async (req, res) => {
