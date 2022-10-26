@@ -293,7 +293,7 @@ const updatelength = async (req, res) => {
 }
 
 //update arrival time 
-const updateArrivalTime = async (req, res) => {
+const updateStockTime = async (req, res) => {
     const id = req.params.id;
 
     const fuelStation = await FuelStation.findOne({ id: id });
@@ -304,7 +304,6 @@ const updateArrivalTime = async (req, res) => {
     const ownername = fuelStation.ownername;
     const phonenumber = fuelStation.phonenumber;
     const address = fuelStation.address;
-    const finishtime = fuelStation.finishtime;
     const status = fuelStation.status;
     const stock = fuelStation.stock;
     const queue = fuelStation.queue;
@@ -316,7 +315,7 @@ const updateArrivalTime = async (req, res) => {
         phonenumber: phonenumber,
         address: address,
         arrivaltime: req.body.arrivaltime,
-        finishtime: finishtime,
+        finishtime: req.body.finishtime,
         status: status,
         stock: stock,
         queue: queue,
@@ -589,7 +588,6 @@ module.exports = {
     getBikeCount,
     getTukCount,
     login,
-    updateArrivalTime,
-    updateFinishTime
+    updateStockTime,
 
 }

@@ -5,6 +5,7 @@ const FuelStationSchema = new Schema({
 
     id: {
         type: String,
+        unique: true
     },
 
     name: {

@@ -613,9 +613,9 @@ var updatelength = function updatelength(req, res) {
 }; //update arrival time 
 
 
-var updateArrivalTime = function updateArrivalTime(req, res) {
-  var id, fuelStation, password, name, ownername, phonenumber, address, finishtime, status, stock, queue, changeStatus, response;
-  return regeneratorRuntime.async(function updateArrivalTime$(_context10) {
+var updateStockTime = function updateStockTime(req, res) {
+  var id, fuelStation, password, name, ownername, phonenumber, address, status, stock, queue, changeStatus, response;
+  return regeneratorRuntime.async(function updateStockTime$(_context10) {
     while (1) {
       switch (_context10.prev = _context10.next) {
         case 0:
@@ -632,7 +632,6 @@ var updateArrivalTime = function updateArrivalTime(req, res) {
           ownername = fuelStation.ownername;
           phonenumber = fuelStation.phonenumber;
           address = fuelStation.address;
-          finishtime = fuelStation.finishtime;
           status = fuelStation.status;
           stock = fuelStation.stock;
           queue = fuelStation.queue;
@@ -643,23 +642,23 @@ var updateArrivalTime = function updateArrivalTime(req, res) {
             phonenumber: phonenumber,
             address: address,
             arrivaltime: req.body.arrivaltime,
-            finishtime: finishtime,
+            finishtime: req.body.finishtime,
             status: status,
             stock: stock,
             queue: queue,
             password: password
           };
-          _context10.prev = 14;
-          _context10.next = 17;
+          _context10.prev = 13;
+          _context10.next = 16;
           return regeneratorRuntime.awrap(FuelStation.findOneAndUpdate({
             id: id
           }, changeStatus));
 
-        case 17:
+        case 16:
           response = _context10.sent;
 
           if (!response) {
-            _context10.next = 22;
+            _context10.next = 21;
             break;
           }
 
@@ -667,28 +666,28 @@ var updateArrivalTime = function updateArrivalTime(req, res) {
             message: 'Successfully updated'
           }));
 
-        case 22:
+        case 21:
           return _context10.abrupt("return", res.status(500).send({
             message: 'Internal server error'
           }));
 
-        case 23:
-          _context10.next = 28;
+        case 22:
+          _context10.next = 27;
           break;
 
-        case 25:
-          _context10.prev = 25;
-          _context10.t0 = _context10["catch"](14);
+        case 24:
+          _context10.prev = 24;
+          _context10.t0 = _context10["catch"](13);
           return _context10.abrupt("return", res.status(400).send({
             message: 'Unable to update'
           }));
 
-        case 28:
+        case 27:
         case "end":
           return _context10.stop();
       }
     }
-  }, null, null, [[14, 25]]);
+  }, null, null, [[13, 24]]);
 }; //update finish time
 
 
@@ -1177,7 +1176,6 @@ module.exports = {
   getBikeCount: getBikeCount,
   getTukCount: getTukCount,
   login: login,
-  updateArrivalTime: updateArrivalTime,
-  updateFinishTime: updateFinishTime
+  updateStockTime: updateStockTime
 };
 //# sourceMappingURL=station.controller.dev.js.map
