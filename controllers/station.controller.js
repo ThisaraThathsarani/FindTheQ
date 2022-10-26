@@ -3,6 +3,7 @@ const { request } = require('express')
 const bcrypt = require('bcryptjs');
 const auth = require('../middlewares/token')
 
+//Station registration
 const StationRegister = async (req, res) => {
     const id = req.body.id;
     const name = req.body.name;
@@ -48,7 +49,7 @@ const StationRegister = async (req, res) => {
 
 }
 
-
+//station owner login
 const login = async (req, res) => {
     const id = req.body.id;
     const password = req.body.password;
@@ -73,7 +74,7 @@ const login = async (req, res) => {
 
 }
 
-
+//get all fuel station
 const getAllFuelStation = async (req, res) => {
     try {
         let fuelStations = await FuelStation.find();
@@ -104,6 +105,7 @@ const getOneFuelStation = async (req, res) => {
     }
 }
 
+//search station by name
 const searchStation = async (req, res) => {
     let value = req.params.name.trim();
 
@@ -122,6 +124,7 @@ const searchStation = async (req, res) => {
     }
 }
 
+//search station by address
 const searchByAddress = async (req, res) => {
     let value = req.params.address.trim();
 
@@ -140,6 +143,7 @@ const searchByAddress = async (req, res) => {
     }
 }
 
+//update status by station id
 const updateStatus = async (req, res) => {
     const id = req.params.id;
 
@@ -186,6 +190,7 @@ const updateStatus = async (req, res) => {
 
 }
 
+//update stock details
 const updatestock = async (req, res) => {
     const id = req.params.id;
 
@@ -203,7 +208,7 @@ const updatestock = async (req, res) => {
     const queue = fuelStation.queue;
 
     console.log(req.body)
-    
+
     const changeStatus = {
         id : id,
         name : name,
@@ -213,7 +218,6 @@ const updatestock = async (req, res) => {
         arrivaltime : arrivaltime,
         finishtime : finishtime,
         status : status,
-        //stock : req.body.stock,
         stock : {
             diesel: req.body.stock.diesel,
             petrol: req.body.stock.petrol
@@ -222,8 +226,6 @@ const updatestock = async (req, res) => {
         password: password
 
     }
-
-    // console.table([ id, req.body.stock.diesel, req.body.stock.petrol])
   
 
     try {
@@ -241,6 +243,7 @@ const updatestock = async (req, res) => {
 
 }
 
+//update queue length
 const updatelength = async (req, res) => {
     const id = req.params.id;
 
@@ -293,6 +296,7 @@ const updatelength = async (req, res) => {
 
 }
 
+//update arrival time 
 const updateArrivalTime = async (req, res) => {
     const id = req.params.id;
 
@@ -339,6 +343,7 @@ const updateArrivalTime = async (req, res) => {
 
 }
 
+//update finish time
 const updateFinishTime = async (req, res) => {
     const id = req.params.id;
 
@@ -385,6 +390,7 @@ const updateFinishTime = async (req, res) => {
 
 }
 
+//update station details
 const updateDetails = async (req, res) => {
     const id = req.params.id;
 
@@ -430,50 +436,7 @@ const updateDetails = async (req, res) => {
 
 }
 
-const updateStation = async (req, res) => {
-    const id = req.params.id;
-
-    const fuelStation = await FuelStation.findOne({ id: id });
-
-    const password = fuelStation.password;
-
-    const name = fuelStation.name;
-    const ownername = fuelStation.ownername;
-    const phonenumber = fuelStation.phonenumber;
-    const address = fuelStation.address;
-    const arrivaltime = fuelStation.arrivaltime;
-    const finishtime = fuelStation.finishtime;
-
-    const changeStatus = {
-        id: id,
-        name: name,
-        ownername: ownername,
-        phonenumber: phonenumber,
-        address: address,
-        arrivaltime: arrivaltime,
-        finishtime: finishtime,
-        status: req.body.status,
-        stock: req.body.stock,
-        queue: queue,
-        password: password
-
-    }
-
-    try {
-        const response = await FuelStation.findOneAndUpdate({ id: id }, changeStatus);
-        if (response) {
-            return res.status(200).send({ message: 'Successfully updated' })
-        } else {
-
-            return res.status(500).send({ message: 'Internal server error' });
-        }
-
-    } catch (err) {
-        return res.status(400).send({ message: 'Unable to update' })
-    }
-
-}
-
+//get vehicle count
 const getcount = async (req, res) => {
     let value = req.params.id.trim();
     console.log("carcount");
@@ -492,14 +455,6 @@ const getcount = async (req, res) => {
 
             let allCount = carCount + vanCount + busCount + bikeCount + tukCount;
 
-            // let countObject = {
-            //     carCount : carCount,
-            //     vanCount : vanCount,
-            //     busCount : busCount,
-            //     bikeCount : bikeCount,
-            //     allCount : allCount
-            // }
-
             return res.status(200).send({ count: allCount });
 
         } else {
@@ -510,6 +465,7 @@ const getcount = async (req, res) => {
     }
 }
 
+//get Car count
 const getCarCount = async (req, res) => {
     let value = req.params.id.trim();
 
@@ -531,6 +487,7 @@ const getCarCount = async (req, res) => {
     }
 }
 
+//get Van count
 const getVanCount = async (req, res) => {
     let value = req.params.id.trim();
 
@@ -552,6 +509,7 @@ const getVanCount = async (req, res) => {
     }
 }
 
+//get bus count
 const getBusCount = async (req, res) => {
     let value = req.params.id.trim();
 
@@ -573,6 +531,7 @@ const getBusCount = async (req, res) => {
     }
 }
 
+//get bike count
 const getBikeCount = async (req, res) => {
     let value = req.params.id.trim();
 
@@ -594,6 +553,7 @@ const getBikeCount = async (req, res) => {
     }
 }
 
+//get tuke count
 const getTukCount = async (req, res) => {
     let value = req.params.id.trim();
 

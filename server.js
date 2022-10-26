@@ -33,15 +33,6 @@ let customer = require('./routes/customer.route')
 app.use('/api/customers', customer);
 
 
-//station route
-let station = require('./routes/stationOwner.route')
-app.use('/api/stations', station);
-
-//queue route
-let queue = require('./routes/queue.route')
-app.use('/api/queues', queue);
-
-
 //new station route
 let fuelStation = require('./routes/station.route')
 app.use('/api/fuelstation', fuelStation);

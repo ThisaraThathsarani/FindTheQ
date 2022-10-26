@@ -4,7 +4,7 @@ const auth = require('../middlewares/token')
 const Customer = require('../models/customer.model');
 const FuelStation = require('../models/station.model');
 
-
+//Customer registration
 const registerCustomer = async (req, res) => {
 
     const customername = req.body.customername;
@@ -46,6 +46,7 @@ const registerCustomer = async (req, res) => {
 
 }
 
+//If customer joined to the queue update the status
 const updateCustomerJoinedStatus = async (req, res) => {
 
     const email = req.params.email;
@@ -65,6 +66,7 @@ const updateCustomerJoinedStatus = async (req, res) => {
     }
 }
 
+//when customer leave from the queue status update as false
 const setStatus = async (req, res) => {
 
     const email = req.params.email;
@@ -84,6 +86,7 @@ const setStatus = async (req, res) => {
     }
 }
 
+//when customer joint to the queue update vehicle type count
 const setQueueJoinedStatus = async (req, res) => {
     const email = req.body.email;
     const status = req.body.status;
@@ -177,7 +180,7 @@ const setQueueJoinedStatus = async (req, res) => {
     }
 }
 
-
+//custome login
 const login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -202,37 +205,7 @@ const login = async (req, res) => {
 
 }
 
-const updateTime = async (req, res) => {
-    const vehicleid = req.params.vehicleid;
-
-    const customer = await Customer.findOne({ vehicleid: vehicleid });
-
-    const password = customer.password;
-
-    const changeTime = {
-        customername: req.body.customername,
-        vehicleid: req.body.vehicleid,
-        nic: req.body.nic,
-        phonenumber: req.body.phonenumber,
-        vehicletype: req.body.vehicletype,
-        password: password
-    }
-
-    try {
-        const response = await Customer.findOneAndUpdate({ vehicleid: vehicleid }, changeTime);
-        if (response) {
-            return res.status(200).send({ message: 'Successfully update time' })
-        } else {
-
-            return res.status(500).send({ message: 'Internal server error' });
-        }
-
-    } catch (err) {
-        return res.status(400).send({ message: 'Unable to update' })
-    }
-}
-
-
+//get One user
 const getOneUser = async (req, res) => {
 
     const email = req.params.email;
@@ -256,7 +229,6 @@ const getOneUser = async (req, res) => {
 module.exports = {
     registerCustomer,
     login,
-    updateTime,
     getOneUser,
     updateCustomerJoinedStatus,
     setStatus,
