@@ -469,7 +469,6 @@ var updatestock = function updatestock(req, res) {
           finishtime = fuelStation.finishtime;
           status = fuelStation.status;
           queue = fuelStation.queue;
-          console.log(req.body);
           changeStatus = {
             id: id,
             name: name,
@@ -480,23 +479,23 @@ var updatestock = function updatestock(req, res) {
             finishtime: finishtime,
             status: status,
             stock: {
-              diesel: req.body.stock.diesel,
-              petrol: req.body.stock.petrol
+              diesel: req.body.diesel,
+              petrol: req.body.petrol
             },
             queue: queue,
             password: password
           };
-          _context8.prev = 15;
-          _context8.next = 18;
+          _context8.prev = 14;
+          _context8.next = 17;
           return regeneratorRuntime.awrap(FuelStation.findOneAndUpdate({
             stationid: id
           }, changeStatus));
 
-        case 18:
+        case 17:
           response = _context8.sent;
 
           if (!response) {
-            _context8.next = 23;
+            _context8.next = 22;
             break;
           }
 
@@ -504,28 +503,28 @@ var updatestock = function updatestock(req, res) {
             message: 'Successfully updated'
           }));
 
-        case 23:
+        case 22:
           return _context8.abrupt("return", res.status(500).send({
             message: 'Internal server error'
           }));
 
-        case 24:
-          _context8.next = 29;
+        case 23:
+          _context8.next = 28;
           break;
 
-        case 26:
-          _context8.prev = 26;
-          _context8.t0 = _context8["catch"](15);
+        case 25:
+          _context8.prev = 25;
+          _context8.t0 = _context8["catch"](14);
           return _context8.abrupt("return", res.status(400).send({
             message: 'Unable to update'
           }));
 
-        case 29:
+        case 28:
         case "end":
           return _context8.stop();
       }
     }
-  }, null, null, [[15, 26]]);
+  }, null, null, [[14, 25]]);
 }; //update queue length
 
 

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
- 
-const FuelStationSchema = new Schema( { 
+
+const FuelStationSchema = new Schema({
 
     id: {
         type: String,
@@ -12,7 +12,7 @@ const FuelStationSchema = new Schema( {
     },
 
     ownername: {
-        type:String,
+        type: String,
     },
 
     phonenumber: {
@@ -36,15 +36,15 @@ const FuelStationSchema = new Schema( {
     },
 
     stock: {
-        diesel: {type: String }, petrol: {type: String }
+        diesel: { type: String }, petrol: { type: String }
     },
 
     queue: {
-        Car: {type: Number }, Van: {type: Number }, Bus: {type: Number }, Bike: {type: Number }, Tuk: {type: Number }
+        Car: { type: Number }, Van: { type: Number }, Bus: { type: Number }, Bike: { type: Number }, Tuk: { type: Number }
     },
 
     password: {
-        type:String
+        type: String
     }
 
 

@@ -26,11 +26,11 @@ const StationRegister = async (req, res) => {
         ownername,
         phonenumber,
         address,
-        arrivaltime : "-",
-        finishtime : "-",
-        status : "Available",
-        stock : {diesel :0 , petrol: 0},
-        queue : {Car :0 , Van: 0 , Bus: 0 , Bike: 0 , Tuk: 0},
+        arrivaltime: "-",
+        finishtime: "-",
+        status: "Available",
+        stock: { diesel: 0, petrol: 0 },
+        queue: { Car: 0, Van: 0, Bus: 0, Bike: 0, Tuk: 0 },
         password
     })
 
@@ -195,7 +195,6 @@ const updatestock = async (req, res) => {
     const id = req.params.id;
 
     const fuelStation = await FuelStation.findOne({ id: id });
-
     const password = fuelStation.password;
 
     const name = fuelStation.name;
@@ -207,26 +206,23 @@ const updatestock = async (req, res) => {
     const status = fuelStation.status;
     const queue = fuelStation.queue;
 
-    console.log(req.body)
-
     const changeStatus = {
-        id : id,
-        name : name,
-        ownername : ownername,
-        phonenumber : phonenumber,
-        address : address,
-        arrivaltime : arrivaltime,
-        finishtime : finishtime,
-        status : status,
-        stock : {
-            diesel: req.body.stock.diesel,
-            petrol: req.body.stock.petrol
+        id: id,
+        name: name,
+        ownername: ownername,
+        phonenumber: phonenumber,
+        address: address,
+        arrivaltime: arrivaltime,
+        finishtime: finishtime,
+        status: status,
+        stock: {
+            diesel: req.body.diesel,
+            petrol: req.body.petrol
         },
         queue: queue,
         password: password
 
     }
-  
 
     try {
         const response = await FuelStation.findOneAndUpdate({ stationid: id }, changeStatus);
