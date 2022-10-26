@@ -147,7 +147,7 @@ const searchByAddress = async (req, res) => {
 const updateStatus = async (req, res) => {
     const id = req.params.id;
 
-    const fuelStation = await FuelStation.findOne({ stationid: id });
+    const fuelStation = await FuelStation.findOne({ id: id });
 
     const password = fuelStation.password;
 
@@ -176,7 +176,7 @@ const updateStatus = async (req, res) => {
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ stationid: id }, changeStatus);
+        const response = await FuelStation.findOneAndUpdate({ id: id }, changeStatus);
         if (response) {
             return res.status(200).send({ message: 'Successfully updated' })
         } else {
@@ -225,7 +225,7 @@ const updatestock = async (req, res) => {
     }
 
     try {
-        const response = await FuelStation.findOneAndUpdate({ stationid: id }, changeStatus);
+        const response = await FuelStation.findOneAndUpdate({ id: id }, changeStatus);
         if (response) {
             return res.status(200).send({ message: 'Successfully updated' })
         } else {
